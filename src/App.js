@@ -1,13 +1,35 @@
 import React from 'react';
 import Header from './header';
+import Profile from './profile'
+import Map from './map'
+import Login from './login'
+import Signup from './signup'
 import './App.css';
 
-function App () {
-    return (
-        <>
-            <Header />
-        </>
-    )
+const Pages = {
+    profile: () => <Profile/>,
+    map: () => <Map/>,
+    login: () => <Login/>,
+    signup: () => <Signup/>
+};
+
+class App extends React.Component {
+    state = {
+        currentPage: 'profile'
+    };
+
+    setPage = page => {
+        this.setState({currentPage: page});
+    };
+
+    render() {
+        return (
+            <>
+              <Header setPage={this.setPage}/>
+              {Pages[this.state.currentPage]()}
+            </>
+        );
+    }
 }
 
 export default App;
