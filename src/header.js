@@ -3,10 +3,10 @@ import React from 'react';
 const Header =({setPage}) => {
     return (
         <div>
-            <button onClick={() => setPage('profile')}>Profile</button>
-            <button onClick={() => setPage('map')}>Map</button>
-            <button onClick={() => setPage('login')}>Login</button>
-            <button onClick={() => setPage('signup')}>Signup</button>
+            <button name="profile" onClick={setPage}>Profile</button>
+            <button name="map" onClick={setPage}>Map</button>
+            <button name="login" onClick={setPage}>Login</button>
+            <button name="signup" onClick={setPage}>Signup</button>
         </div>
     )
 };

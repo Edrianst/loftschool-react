@@ -18,8 +18,8 @@ class App extends React.Component {
         currentPage: 'profile'
     };
 
-    setPage = page => {
-        this.setState({currentPage: page});
+    setPage =  e => {
+        this.setState({currentPage: e.target.name});
     };
 
     render() {
