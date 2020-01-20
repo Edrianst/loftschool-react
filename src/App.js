@@ -1,10 +1,9 @@
-import React from 'react';
-import Header from './header';
+import React from 'react'
+import Header from './header'
 import Profile from './profile'
 import Map from './map'
 import Login from './login'
 import Signup from './signup'
-import './App.css';
 
 const Pages = {
     profile: () => <Profile/>,
