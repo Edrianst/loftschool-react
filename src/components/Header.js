@@ -10,6 +10,9 @@ const pages = [
 
 const Header =({setPage}) => {
     const context = useContext(Context);
+    const handleClick = e => {
+        setPage(e.target.name)
+    };
     return (
         <>
             <header className="header">
@@ -17,7 +20,7 @@ const Header =({setPage}) => {
                     <div className="header__line">
                         <HeaderLogo />
                         <div className="header__menu">
-                            {pages.map(page => <button key={page.id} onClick={() => setPage(page.value)} className="menu__item">{page.text}</button>)}
+                            {pages.map(page => <button key={page.id} name={page.value} onClick={handleClick} className="menu__item">{page.text}</button>)}
                             <button className="menu__item" onClick={context.logout}>Выйти</button>
                         </div>
                     </div>

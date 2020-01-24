@@ -14,7 +14,7 @@ const Map = () => {
         return () => {
             map.remove();
         }
-    });
+    }, [mapContainer]);
 
     const style = {
         position: 'absolute',
@@ -23,7 +23,7 @@ const Map = () => {
         width: '100%',
         zIndex: 0
     };
-    return <div id="map" style={style} ref={el => mapContainer = el} />;
+    return <div className="map" style={style} ref={el => mapContainer = el} />;
 };
 
 export default Map;

@@ -18,7 +18,7 @@
 }
 
 .login__form {
-    background-color: #fff;
+    background-color: $white;
     padding: 65px 50px;
     border-radius: 5px;
 }
@@ -54,7 +54,7 @@
 .form__input {
     width: 100%;
     border: none;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 2px solid $input-border;
     padding: 5px;
     &:focus {
         border: none;
