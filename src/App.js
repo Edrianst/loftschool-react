@@ -22,7 +22,7 @@ const App = () => {
             if(email !== '' && password !== '') {
                 setLoggedIn(true);
                 setPage('map');
-            }   
+            }
         },
 
         logout: () => {
