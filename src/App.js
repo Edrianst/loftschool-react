@@ -1,5 +1,5 @@
 import './scss/App.scss'
-import React, {useState} from 'react'
+import React, {useState, createContext} from 'react'
 import Header from './components/Header/Header'
 import Profile from './components/Profile/Profile'
 import Map from './components/Map/Map'
@@ -11,7 +11,7 @@ const Pages = {
     login: () => <Login />
 };
 
-export const Context = React.createContext();
+export const Context = createContext();
 
 const App = () => {
     const [currentPage, setPage] = useState('login');
