@@ -10,7 +10,7 @@ const LoginForm = () => {
         context.login(inputData.login, inputData.password);
     };
     return (
-        <form action="" method="" onSubmit={handleSubmit} className="login__form" id="loginForm">
+        <form action="" method="" onSubmit={handleSubmit} className="login__form" id="loginForm" data-testid="LoginForm">
             <h1 className="form__title">Войти</h1>
             <div className="form__subtitle">
                 Новый пользователь? <a href="#" className="form__link">Зарегистрируйтесь</a>
