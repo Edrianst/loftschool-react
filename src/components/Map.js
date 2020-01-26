@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+import mapboxgl from 'mapbox-gl';
 
 const Map = () => {
     let mapContainer;

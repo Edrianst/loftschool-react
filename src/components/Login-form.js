@@ -18,13 +18,13 @@ const LoginForm = () => {
                 </div>
                 <div className="input__group">
                     <label htmlFor="login" className="input__label">Имя пользователя<sup>*</sup></label>
-                    <input type="text" name="login" className="form__input" onChange={handleChange} required />
+                    <input type="text" name="login" className="form__input" data-testid="login-field" onChange={handleChange} required />
                 </div>
                 <div className="input__group">
                     <label htmlFor="password" className="input__label">Пароль<sup>*</sup></label>
-                    <input type="password" name="password" className="form__input" onChange={handleChange} required />
+                    <input type="password" name="password" className="form__input" data-testid="password-field" onChange={handleChange} required />
                 </div>
-                <input type="submit" value="Войти" className="form__btn" />
+                <input type="submit" value="Войти" data-testid="submit-button" className="form__btn" />
             </form>
         </>
     )

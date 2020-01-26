@@ -11,10 +11,12 @@
 }
 
 .content__part {
+    position: relative;
     flex: 0 0 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 50px;
 }
 
 .login__form {
