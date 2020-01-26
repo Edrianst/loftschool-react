@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
 import HeaderLogo from './HeaderLogo'
 import HeaderButton from './HeaderButton'
-import {Context} from '../../App'
+import { Context } from '../../App'
 
 const pages = [
     { value: 'map', text: 'Карта', id: 0 },
