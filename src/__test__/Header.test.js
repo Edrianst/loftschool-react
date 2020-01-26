@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 
 it('renders correctly', () => {
     const {queryByTestId} = render(<Header />);
@@ -13,7 +13,7 @@ describe('menu-item', ()=> {
         const setPage = jest.fn();
         const {queryByTestId} = render(<Header setPage={setPage} /> );
 
-        fireEvent.click(queryByTestId('0'));
+        fireEvent.click(queryByTestId(0));
 
         expect(setPage).toHaveBeenCalled();
     })
