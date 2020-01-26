@@ -6,9 +6,9 @@ import Map from './components/Map'
 import Login from './components/Login'
 
 const Pages = {
-    profile: () => <Profile/>,
-    map: () => <Map/>,
-    login: () => <Login/>,
+    profile: () => <Profile data-testid="Profile"/>,
+    map: () => <Map data-testid="Map"/>,
+    login: () => <Login data-testd="Login"/>,
 };
 
 export const Context = React.createContext();
@@ -34,7 +34,7 @@ const App = () => {
     return (
         <>
             <Context.Provider value={status}>
-                {isLoggedIn && <Header setPage={setPage}/> }
+                {isLoggedIn && <Header setPage={setPage} data-testid="Header"/> }
                 {Pages[currentPage]()}
             </Context.Provider>
         </>
