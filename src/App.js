@@ -1,14 +1,14 @@
 import './scss/App.scss'
 import React, {useState} from 'react'
-import Header from './components/Header'
-import Profile from './components/Profile'
-import Map from './components/Map'
-import Login from './components/Login'
+import Header from './components/Header/Header'
+import Profile from './components/Profile/Profile'
+import Map from './components/Map/Map'
+import Login from './components/Login/Login'
 
 const Pages = {
-    profile: () => <Profile data-testid="Profile"/>,
-    map: () => <Map data-testid="Map"/>,
-    login: () => <Login data-testd="Login"/>,
+    profile: () => <Profile />,
+    map: () => <Map />,
+    login: () => <Login />
 };
 
 export const Context = React.createContext();

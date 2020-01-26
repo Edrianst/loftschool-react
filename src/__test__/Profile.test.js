@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Profile from '../components/Profile';
+import Profile from '../components/Profile/Profile';
 
 it('renders correctly', () => {
     const {queryByTestId} = render(<Profile />);
