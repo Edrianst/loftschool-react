@@ -16,7 +16,7 @@ const Header =({setPage}) => {
     };
 
     return (
-        <header className="header">
+        <header className="header" data-testid="Header">
             <div className="container">
                 <div className="header__line">
                     <HeaderLogo />

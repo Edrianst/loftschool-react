@@ -12,7 +12,7 @@ const Login = () => {
                         <Logo />
                     </div>
                     <div className="content__part">
-                        <LoginForm data-testid="Login-form"/>
+                        <LoginForm />
                     </div>
                 </div>
             </div>

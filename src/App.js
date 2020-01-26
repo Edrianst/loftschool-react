@@ -34,7 +34,7 @@ const App = () => {
     return (
         <>
             <Context.Provider value={status}>
-                {isLoggedIn && <Header setPage={setPage} data-testid="Header"/> }
+                {isLoggedIn && <Header setPage={setPage} /> }
                 {Pages[currentPage]()}
             </Context.Provider>
         </>

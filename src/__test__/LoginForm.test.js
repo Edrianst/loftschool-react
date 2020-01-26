@@ -2,10 +2,15 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import LoginForm from '../components/Login/LoginForm';
 
+jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
+    Map: () => ({})
+}));
+
 it('renders correctly', () => {
+    window.URL.createObjectURL = jest.fn();
     const {queryByTestId} = render(<LoginForm />);
 
-    expect(queryByTestId("Login-form")).toBeTruthy();
+    expect(queryByTestId("LoginForm")).toBeTruthy();
 });
 
 describe('Submit button', () => {

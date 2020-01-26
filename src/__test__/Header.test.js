@@ -2,8 +2,16 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import Header from '../components/Header/Header';
 
+jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
+    Map: () => ({})
+}));
+
 it('renders correctly', () => {
-    const {queryByTestId} = render(<Header />);
+    const setPage = jest.fn();
+    const logout = jest.fn();
+    const {queryByTestId} = render(<Header setPage={setPage} />);
+
+    window.URL.createObjectURL = jest.fn();
 
     expect(queryByTestId('Header')).toBeTruthy();
 });
