@@ -1,0 +1,25 @@
+.container {
+    width: 1140px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+.logo {
+    position: absolute;
+    top: 50%;
+    left: -2000px;
+    transform: translate(-50%, -50%);
+    animation: slidein 1s ease-in-out forwards;
+}
+
+@keyframes slidein {
+    from {
+        left: -2000px
+    }
+    90% {
+        left: 52%;
+    }
+    to {
+        left: 50%;
+    }
+}

@@ -1,34 +1,44 @@
-import React from 'react'
-import Header from './header'
-import Profile from './profile'
-import Map from './map'
-import Login from './login'
-import Signup from './signup'
+import './scss/App.scss'
+import React, {useState, createContext} from 'react'
+import Header from './components/Header/Header'
+import Profile from './components/Profile/Profile'
+import Map from './components/Map/Map'
+import Login from './components/Login/Login'
 
 const Pages = {
-    profile: () => <Profile/>,
-    map: () => <Map/>,
-    login: () => <Login/>,
-    signup: () => <Signup/>
+    profile: () => <Profile />,
+    map: () => <Map />,
+    login: () => <Login />
 };
 
-class App extends React.Component {
-    state = {
-        currentPage: 'profile'
+export const Context = createContext();
+
+const App = () => {
+    const [currentPage, setPage] = useState('login');
+    const [isLoggedIn, setLoggedIn] = useState(false);
+
+    const status = {
+        login: (email, password) => {
+            if(email !== '' && password !== '') {
+                setLoggedIn(true);
+                setPage('map');
+            }
+        },
+
+        logout: () => {
+            setLoggedIn(false);
+            setPage('login')
+        }
     };
 
-    setPage =  e => {
-        this.setState({currentPage: e.target.name});
-    };
-
-    render() {
-        return (
-            <>
-              <Header setPage={this.setPage}/>
-              {Pages[this.state.currentPage]()}
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <Context.Provider value={status}>
+                {isLoggedIn && <Header setPage={setPage} /> }
+                {Pages[currentPage]()}
+            </Context.Provider>
+        </>
+    )
+};
 
 export default App;
