@@ -1,44 +1,32 @@
 import './scss/App.scss'
-import React, {useState, createContext} from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Header from './components/Header/Header'
 import Profile from './components/Profile/Profile'
 import Map from './components/Map/Map'
 import Login from './components/Login/Login'
+import withAuth from './HOCs/Auth'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
-const Pages = {
-    profile: () => <Profile />,
-    map: () => <Map />,
-    login: () => <Login />
+const App = ({isLoggedIn}) => {
+        return (
+                <>
+                    <Switch>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/map" component={() => (<><Header/> <Map/></>)}/>
+                        <Route path="/profile" component={() => (<><Header/> <Profile/></>)}/>
+                    </Switch>
+                    {isLoggedIn ? <Redirect to="/map"/> : <Redirect to="/login"/> }
+                </>
+        )
 };
 
-export const Context = createContext();
-
-const App = () => {
-    const [currentPage, setPage] = useState('login');
-    const [isLoggedIn, setLoggedIn] = useState(false);
-
-    const status = {
-        login: (email, password) => {
-            if(email !== '' && password !== '') {
-                setLoggedIn(true);
-                setPage('map');
-            }
-        },
-
-        logout: () => {
-            setLoggedIn(false);
-            setPage('login')
-        }
-    };
-
-    return (
-        <>
-            <Context.Provider value={status}>
-                {isLoggedIn && <Header setPage={setPage} /> }
-                {Pages[currentPage]()}
-            </Context.Provider>
-        </>
-    )
+App.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
 };
 
-export default App;
+App.defaultProps = {
+    isLoggedIn: false
+};
+
+export default withAuth(App);
