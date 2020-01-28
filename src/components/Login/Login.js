@@ -3,16 +3,15 @@ import LoginForm from './LoginForm'
 import Logo from './Logo'
 
 const Login = () => {
-
     return (
         <div className="login" data-testid="Login">
             <div className="container">
                 <div className="login__content">
                     <div className="content__part">
-                        <Logo />
+                        <Logo/>
                     </div>
                     <div className="content__part">
-                        <LoginForm />
+                        <LoginForm/>
                     </div>
                 </div>
             </div>

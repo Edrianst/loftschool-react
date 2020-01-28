@@ -1,44 +1,19 @@
-import React, {useContext} from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import HeaderLogo from './HeaderLogo'
-import HeaderButton from './HeaderButton'
-import { Context } from '../../App'
+import HeaderMenu from './HeaderMenu'
 
-const pages = [
-    { value: 'map', text: 'Карта', id: 0 },
-    { value: 'profile', text: 'Профиль', id: 1 }
-];
-
-const Header =({setPage}) => {
-    const context = useContext(Context);
-    const handleClick = e => {
-        setPage(e.target.name)
-    };
+const Header = () => {
 
     return (
         <header className="header" data-testid="Header">
             <div className="container">
                 <div className="header__line">
                     <HeaderLogo />
-                    <div className="header__menu">
-                        {pages.map(page =>
-                            <HeaderButton
-                                key={page.id}
-                                name={page.value}
-                                text={page.text}
-                                handleClick={handleClick}
-                                testid={page.id}
-                            />)}
-                        <HeaderButton handleClick={context.logout} text={'Выйти'} />
-                    </div>
+                    <HeaderMenu/>
                 </div>
             </div>
         </header>
     )
-};
-
-Header.propTypes = {
-    setPage: PropTypes.func.isRequired
 };
 
 export default Header;

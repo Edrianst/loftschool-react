@@ -1,19 +1,19 @@
 import React, { useState, useContext } from 'react'
-import { Context } from '../../App'
+import { Context } from '../../HOCs/Auth'
 
 const LoginForm = () => {
-    const context = useContext(Context);
+    const { login } = useContext(Context);
     const [ inputData, setData ] = useState({ login: '', password: ''});
     const handleChange = ({ target }) => { setData({ [target.name]: target.value }) };
     const handleSubmit = e => {
         e.preventDefault();
-        context.login(inputData.login, inputData.password);
+        login(inputData.login, inputData.password);
     };
     return (
         <form action="" method="" onSubmit={handleSubmit} className="login__form" id="loginForm" data-testid="LoginForm">
             <h1 className="form__title">Войти</h1>
             <div className="form__subtitle">
-                Новый пользователь? <a href="#" className="form__link">Зарегистрируйтесь</a>
+                Новый пользователь? <a href="/" className="form__link">Зарегистрируйтесь</a>
             </div>
             <div className="input__group">
                 <label htmlFor="login" className="input__label">Имя пользователя<sup>*</sup></label>
