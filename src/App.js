@@ -5,16 +5,18 @@ import Header from './components/Header/Header'
 import Profile from './components/Profile/Profile'
 import Map from './components/Map/Map'
 import Login from './components/Login/Login'
-import withAuth from './HOCs/Auth'
+import Signup from './components/Signup/Signup'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-const App = ({isLoggedIn}) => {
+const App = ({ isLoggedIn }) => {
         return (
                 <>
                     <Switch>
                         <Route path="/login" component={Login}/>
-                        <Route path="/map" component={() => (<><Header/> <Map/></>)}/>
-                        <Route path="/profile" component={() => (<><Header/> <Profile/></>)}/>
+                        <Route path="/signup" component={Signup}/>
+                        <Route path="/map" render={() => (<><Header/> <Map/></>)}/>
+                        <Route path="/profile" render={() => (<><Header/><Profile/></>)}/>
                     </Switch>
                     {isLoggedIn ? <Redirect to="/map"/> : <Redirect to="/login"/> }
                 </>
@@ -29,4 +31,9 @@ App.defaultProps = {
     isLoggedIn: false
 };
 
-export default withAuth(App);
+const mapStateToProps = state => ({isLoggedIn: state.isLoggedIn});
+
+export default connect(
+        mapStateToProps
+)(App);
+
