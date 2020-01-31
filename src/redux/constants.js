@@ -1,10 +1,7 @@
 //login
-export const loginRequest = 'FETCH_LOGIN_REQUEST';
-export const loginSuccess = 'LOGIN_SUCCESS';
-export const loginFailure = 'LOGIN_FAILURE';
-
-//register
-export const registerRequest = 'FETCH_REGISTER_REQUEST';
+export const authRequest = 'FETCH_AUTH_REQUEST';
+export const authSuccess = 'AUTH_SUCCESS';
+export const authFailure = 'AUTH_FAILURE';
 
 //logout
 export const logoutAction = 'LOGOUT_ACTION';

@@ -1,32 +1,17 @@
-import { loginRequest as login} from "./constants";
-import { registerRequest as register} from "./constants";
+import { authRequest as auth} from "./constants";
 import { profileRequest as profile} from "./constants";
-import { fetchLoginSuccess, fetchLoginFailure, fetchProfileSuccess, fetchProfileFailure } from "./actions";
+import { fetchAuthSuccess, fetchAuthFailure, fetchProfileSuccess, fetchProfileFailure } from "./actions";
 
 export const loginMiddleware = store => next => action => {
-    if(action.type === login) {
-        fetch('https://loft-taxi.glitch.me/auth', {
+    if(action.type === auth) {
+        fetch(`https://loft-taxi.glitch.me/${action.payload.path}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(action.payload)})
             .then(response => response.json())
-            .then(data => data.success ? store.dispatch(fetchLoginSuccess(data)) : store.dispatch(fetchLoginFailure(data.error)))
-    }
-    return next(action);
-};
-
-export const registerMiddleware = store => next => action => {
-    if(action.type === register) {
-        fetch('https://loft-taxi.glitch.me/register', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(action.payload)})
-            .then(response => response.json())
-            .then(data => data.success ? store.dispatch(fetchLoginSuccess(data)) : store.dispatch(fetchLoginFailure(data.error)))
+            .then(data => data.success ? store.dispatch(fetchAuthSuccess(data)) : store.dispatch(fetchAuthFailure(data.error)))
     }
     return next(action);
 };

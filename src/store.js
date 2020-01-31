@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import rootReducer from './redux/reducers';
-import { loginMiddleware, registerMiddleware, profileMiddleware } from "./redux/middlewares";
+import { loginMiddleware, profileMiddleware } from "./redux/middlewares";
 import { loadStorage } from "./localstorage";
 
 const initialState = loadStorage();
@@ -11,7 +11,6 @@ const createAppStore = () => {
             initialState,
             compose(
              applyMiddleware(loginMiddleware),
-             applyMiddleware(registerMiddleware),
              applyMiddleware(profileMiddleware),
             window.__REDUX_DEVTOOLS_EXTENSION__
                     ? window.__REDUX_DEVTOOLS_EXTENSION__()
