@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { fetchRegisterRequest } from "../../redux/actions";
-import { connect } from 'react-redux';
 import { drawText } from "../../shared/pending";
+import { useSelector, useDispatch} from "react-redux";
 
-const SignupForm = ({pending, fetchRegisterRequest}) => {
+const SignupForm = () => {
+
+    const pending = useSelector(state => state.pending);
+    const dispatch = useDispatch();
     const [ inputData, setData ] = useState({ email: '', name: '', surname: '', password: ''});
     const handleChange = ({ target }) => { setData({ ...inputData, [target.name]: target.value }) };
     const handleSubmit = e => {
         e.preventDefault();
-        fetchRegisterRequest({
+        dispatch(fetchRegisterRequest({
             email: inputData.email,
             password: inputData.password,
             name: inputData.name.toUpperCase(),
             surname: inputData.surname.toUpperCase()
-        });
+        }));
     };
     return (
             <form action="" method="" onSubmit={handleSubmit} className="form" id="loginForm" data-testid="LoginForm">
@@ -47,7 +50,5 @@ const SignupForm = ({pending, fetchRegisterRequest}) => {
     )
 };
 
-const mapStateToProps = state => ({pending: state.pending});
-const mapDispatchToProps = {fetchRegisterRequest};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
+export default SignupForm;

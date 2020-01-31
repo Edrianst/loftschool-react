@@ -7,33 +7,22 @@ import Map from './components/Map/Map'
 import Login from './components/Login/Login'
 import Signup from './components/Signup/Signup'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector } from "react-redux";
 
-const App = ({ isLoggedIn }) => {
-        return (
-                <>
-                    <Switch>
-                        <Route path="/login" component={Login}/>
-                        <Route path="/signup" component={Signup}/>
-                        <Route path="/map" render={() => (<><Header/> <Map/></>)}/>
-                        <Route path="/profile" render={() => (<><Header/><Profile/></>)}/>
-                    </Switch>
-                    {isLoggedIn ? <Redirect to="/map"/> : <Redirect to="/login"/> }
-                </>
-        )
+const App = () => {
+    const isLoggedIn = useSelector(state => state.isLoggedIn);
+    return (
+        <>
+            <Switch>
+                <Route path="/login" component={Login}/>
+                <Route path="/signup" component={Signup}/>
+                <Route path="/map" render={() => (<><Header/> <Map/></>)}/>
+                <Route path="/profile" render={() => (<><Header/><Profile/></>)}/>
+            </Switch>
+            {isLoggedIn ? <Redirect to="/map"/> : <Redirect to="/login"/> }
+        </>
+    )
 };
 
-App.propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired,
-};
-
-App.defaultProps = {
-    isLoggedIn: false
-};
-
-const mapStateToProps = state => ({isLoggedIn: state.isLoggedIn});
-
-export default connect(
-        mapStateToProps
-)(App);
+export default App;
 

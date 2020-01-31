@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import McLogo from "./McIcon";
 import {fetchProfileRequest} from "../../redux/actions";
-import { connect } from 'react-redux';
-import {drawText} from "../../shared/pending";
+import {useSelector, useDispatch} from "react-redux";
 
-const Profile = ({profile, fetchProfileRequest}) => {
+const Profile = () => {
+    const profile = useSelector(state => state.profile);
+    const dispatch = useDispatch();
     const [inputData, setData] = useState({cardNumber: profile.cardNumber, expiryDate: profile.expiryDate, cardName: profile.cardName, cvc: profile.cvc});
     const handleChange = ({ target }) => {setData({...inputData, [target.name]: target.value})};
     const handleSubmit = e => {
         e.preventDefault();
-        fetchProfileRequest({
+        dispatch(fetchProfileRequest({
             cardNumber: inputData.cardNumber,
             expiryDate: inputData.expiryDate,
-            cardName: inputData.cardName,
+            cardName: inputData.cardName.toUpperCase(),
             cvc: inputData.cvc,
             token: profile.token
-        });
+        }));
     };
     return (
         <div className="bg-container">
@@ -55,7 +56,4 @@ const Profile = ({profile, fetchProfileRequest}) => {
     )
 };
 
-const mapStateToProps = state => ({profile: state.profile});
-const mapDispatchToProps = {fetchProfileRequest};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;
