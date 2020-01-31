@@ -2,7 +2,6 @@ import { loginRequest as login} from "./constants";
 import { registerRequest as register} from "./constants";
 import { profileRequest as profile} from "./constants";
 import { fetchLoginSuccess, fetchLoginFailure, fetchProfileSuccess, fetchProfileFailure} from "./actions";
-import {saveStorage} from "../localstorage";
 
 export const loginMiddleware = store => next => action => {
     if(action.type === login) {
