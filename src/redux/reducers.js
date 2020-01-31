@@ -33,7 +33,6 @@ export default (state = {}, action) => {
                 ...state,
                 isLoggedIn: true,
                 pending: false,
-                profile: {token: action.payload.token}
             };
         case logout:
             return {
