@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {logoutAction} from "../../redux/actions";
-import { connect } from 'react-redux';
+import { logoutAction } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 
-const HeaderMenu = ({logoutAction}) => {
+const HeaderMenu = () => {
+    const dispatch = useDispatch();
     const handleClick = e => {
         e.preventDefault();
-        logoutAction();
+        dispatch(logoutAction())
     };
 
     return (
@@ -18,6 +19,4 @@ const HeaderMenu = ({logoutAction}) => {
     )
 };
 
-const mapDispatchToProps = {logoutAction};
-
-export default connect(null, mapDispatchToProps)(HeaderMenu);
+export default HeaderMenu;
