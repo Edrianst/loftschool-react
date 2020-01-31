@@ -4,8 +4,8 @@ import {fetchProfileRequest} from "../../redux/actions";
 import { connect } from 'react-redux';
 import {drawText} from "../../shared/pending";
 
-const Profile = ({token, fetchProfileRequest}) => {
-    const [inputData, setData] = useState({cardNumber: '', expiryDate: '', cardName: '', cvc: ''});
+const Profile = ({profile, fetchProfileRequest}) => {
+    const [inputData, setData] = useState({cardNumber: profile.cardNumber, expiryDate: profile.expiryDate, cardName: profile.cardName, cvc: profile.cvc});
     const handleChange = ({ target }) => {setData({...inputData, [target.name]: target.value})};
     const handleSubmit = e => {
         e.preventDefault();
@@ -14,7 +14,7 @@ const Profile = ({token, fetchProfileRequest}) => {
             expiryDate: inputData.expiryDate,
             cardName: inputData.cardName,
             cvc: inputData.cvc,
-            token: token
+            token: profile.token
         });
     };
     return (
@@ -55,7 +55,7 @@ const Profile = ({token, fetchProfileRequest}) => {
     )
 };
 
-const mapStateToProps = state => ({token: state.profile.token});
+const mapStateToProps = state => ({profile: state.profile});
 const mapDispatchToProps = {fetchProfileRequest};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
