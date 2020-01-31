@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {fetchLoginRequest} from "../../redux/actions";
-import { connect } from 'react-redux';
 import { drawText } from "../../shared/pending";
+import {useSelector, useDispatch} from "react-redux";
 
-const LoginForm = ({ state, fetchLoginRequest }) => {
+const LoginForm = () => {
+    const state = useSelector(state => state);
+    const dispatch = useDispatch();
     const [ inputData, setData ] = useState({email: '', password: ''});
     const handleChange = ({target}) => {setData({ ...inputData, [target.name]: target.value})};
     const handleSubmit = e => {
         e.preventDefault();
-        fetchLoginRequest({
+        dispatch(fetchLoginRequest({
             email: inputData.email,
             password: inputData.password
-        });
+        }));
     };
     return (
         <form action="" method="" onSubmit={handleSubmit} className="form" id="loginForm" data-testid="LoginForm">
@@ -37,7 +39,4 @@ const LoginForm = ({ state, fetchLoginRequest }) => {
     )
 };
 
-const mapStateToProps = state => ({ state });
-const mapDispatchToProps = {fetchLoginRequest};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;
