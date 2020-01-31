@@ -7,6 +7,7 @@ export default (WrappedComponent) => () => {
     const [isLoggedIn, setLoggedIn] = useState(false);
 
     const status = {
+
         login: (email, password) => {
             if(email !== '' && password !== '') {
                 setLoggedIn(true);
@@ -20,7 +21,7 @@ export default (WrappedComponent) => () => {
 
     return (
         <Context.Provider value={status}>
-            <WrappedComponent isLoggedIn={isLoggedIn} />
+            <WrappedComponent isLoggedIn={isLoggedIn}/>
         </Context.Provider>
     )
 }
