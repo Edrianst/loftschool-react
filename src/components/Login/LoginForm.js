@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {fetchLoginRequest} from "../../redux/actions";
+import {fetchAuthRequest} from "../../redux/actions";
 import { drawText } from "../../shared/pending";
 import {useSelector, useDispatch} from "react-redux";
 
@@ -11,9 +11,10 @@ const LoginForm = () => {
     const handleChange = ({target}) => {setData({ ...inputData, [target.name]: target.value})};
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(fetchLoginRequest({
+        dispatch(fetchAuthRequest({
             email: inputData.email,
-            password: inputData.password
+            password: inputData.password,
+            path: 'auth'
         }));
     };
     return (

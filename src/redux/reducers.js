@@ -1,7 +1,6 @@
-import { loginRequest as login} from "./constants";
-import { loginSuccess as success} from "./constants";
-import { loginFailure as failure} from "./constants";
-import { registerRequest as register} from "./constants";
+import { authRequest as login} from "./constants";
+import { authSuccess as success} from "./constants";
+import { authFailure as failure} from "./constants";
 import { logoutAction as logout} from "./constants";
 import { profileRequest as profile} from "./constants";
 import { profileSuccess } from "./constants";
@@ -19,11 +18,6 @@ import { profileFailure } from "./constants";
 export default (state = {}, action) => {
     switch (action.type) {
         case login:
-            return {
-                ...state,
-                pending: true
-            };
-        case register:
             return {
                 ...state,
                 pending: true

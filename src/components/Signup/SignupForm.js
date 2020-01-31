@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { fetchRegisterRequest } from "../../redux/actions";
+import { fetchAuthRequest } from "../../redux/actions";
 import { drawText } from "../../shared/pending";
 import { useSelector, useDispatch} from "react-redux";
 
@@ -12,11 +12,12 @@ const SignupForm = () => {
     const handleChange = ({ target }) => { setData({ ...inputData, [target.name]: target.value }) };
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(fetchRegisterRequest({
+        dispatch(fetchAuthRequest({
             email: inputData.email,
             password: inputData.password,
             name: inputData.name.toUpperCase(),
-            surname: inputData.surname.toUpperCase()
+            surname: inputData.surname.toUpperCase(),
+            path: 'register'
         }));
     };
     return (
