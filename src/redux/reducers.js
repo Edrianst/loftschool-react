@@ -1,63 +1,44 @@
-import { authRequest as login} from "./constants";
-import { authSuccess as success} from "./constants";
-import { authFailure as failure} from "./constants";
-import { logoutAction as logout} from "./constants";
-import { profileRequest as profile} from "./constants";
-import { profileSuccess } from "./constants";
-import { profileFailure } from "./constants";
+import {
+    fetchAuthFailure,
+    fetchAuthRequest,
+    fetchAuthSuccess,
+    fetchProfileFailure,
+    fetchProfileRequest,
+    fetchProfileSuccess,
+    logoutAction
+} from "./actions";
 
-//const initialState = {
-//    pending: false,
-//    isLoggedIn: false,
-//    error: null,
-//    profile: {
-//        token: ''
-//    }
-//};
+import { handleActions } from 'redux-actions';
+import { combineReducers } from "redux";
 
-export default (state = {}, action) => {
-    switch (action.type) {
-        case login:
-            return {
-                ...state,
-                pending: true
-            };
-        case success:
-            return {
-                ...state,
-                isLoggedIn: true,
-                pending: false,
-            };
-        case logout:
-            return {
-                ...state,
-                isLoggedIn: false
-            };
-        case failure:
-            return {
-                ...state,
-                pending: false,
-                error: action.payload
-            };
-        case profile:
-            return {
-                ...state,
-                pending: true
-            };
-        case profileSuccess:
-            return {
-                ...state,
-                pending: false,
-                profile: action.payload
-            };
-        case profileFailure:
-            return {
-                ...state,
-                pending: false,
-                error: action.payload
-            };
-        default:
-            return state;
+const isLoggedIn = handleActions({
+    [fetchAuthSuccess]: () => true,
+    [logoutAction]: () => false
+}, false);
 
-    }
-};
+const pending = handleActions({
+    [fetchAuthRequest]: () => true,
+    [fetchAuthSuccess]: () => false,
+    [fetchAuthFailure]: () => false,
+    [fetchProfileRequest]: () => true,
+    [fetchProfileSuccess]: () => false,
+    [fetchProfileFailure]: () => false
+}, false);
+
+const profile = handleActions({
+    [fetchProfileSuccess]: (state, action) => action.payload
+}, {});
+
+const error = handleActions({
+    [fetchAuthFailure]: (state, action) => action.payload,
+    [fetchProfileFailure]: (state, action) => action.payload,
+    [fetchAuthRequest]: () => null,
+    [fetchProfileRequest]: () => null
+}, null);
+
+export default combineReducers({
+    isLoggedIn,
+    pending,
+    profile,
+    error
+});
