@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Header from '../components/Header/Header';
+import Header from '../components/Shared/Header/Header';
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
     Map: () => ({})
