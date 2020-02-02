@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import McLogo from "./McIcon";
-import Header from "../Header/Header";
+import Header from "../Shared/Header/Header";
 import {fetchProfileRequest} from "../../redux/actions";
 import {useSelector, useDispatch} from "react-redux";
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { logoutAction } from "../../redux/actions";
+import { logoutAction } from "../../../redux/actions";
 import { useDispatch } from "react-redux";
 
 const HeaderMenu = () => {

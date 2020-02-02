@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { mapboxToken as token } from '../../constants/Tokens';
-import Header from "../Header/Header";
+import Header from "../Shared/Header/Header";
 
 const Map = () => {
     let mapContainer;

@@ -1,5 +1,5 @@
-import { authRequest as auth} from "./constants";
-import { profileRequest as profile} from "./constants";
+import { authRequest as auth} from "./types";
+import { profileRequest as profile} from "./types";
 import { fetchAuthSuccess, fetchAuthFailure, fetchProfileSuccess, fetchProfileFailure } from "./actions";
 
 export const loginMiddleware = store => next => action => {
@@ -11,7 +11,8 @@ export const loginMiddleware = store => next => action => {
             },
             body: JSON.stringify(action.payload)})
             .then(response => response.json())
-            .then(data => data.success ? store.dispatch(fetchAuthSuccess(data)) : store.dispatch(fetchAuthFailure(data.error)))
+            .then(data => store.dispatch(fetchAuthSuccess(data)))
+            .catch(error => store.dispatch(fetchAuthFailure(error)))
     }
     return next(action);
 };
@@ -25,7 +26,8 @@ export const profileMiddleware = store => next => action => {
             },
             body: JSON.stringify(action.payload)})
                 .then(response => response.json())
-                .then(data => data.success ? store.dispatch(fetchProfileSuccess(action.payload)) : store.dispatch(fetchProfileFailure(data.error)))
+                .then(data => store.dispatch(fetchProfileSuccess(action.payload)))
+                .catch(error => store.dispatch(fetchProfileFailure(error)))
     }
     return next(action);
 };

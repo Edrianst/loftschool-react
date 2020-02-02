@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { fetchAuthRequest } from "../../redux/actions";
-import { drawText } from "../../shared/pending";
+import { drawText } from "../Shared/pending";
 import { useSelector, useDispatch} from "react-redux";
 import { useHistory } from 'react-router-dom';
 
 const SignupForm = () => {
-
     const history = useHistory();
     const state = useSelector(state => state);
     const dispatch = useDispatch();
