@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {fetchAuthRequest} from "../../redux/actions";
-import { drawText } from "../../shared/pending";
+import { drawText } from "../Shared/pending";
 import {useSelector, useDispatch} from "react-redux";
 import { useHistory } from 'react-router-dom';
 
@@ -40,8 +40,8 @@ const LoginForm = () => {
                        onChange={handleChange} required/>
             </div>
             <input type="submit" value="Войти" data-testid="submit-button" className="form__btn"/>
-                <div className="pending"></div>
-                {state.pending ? drawText(['Подождите...', 'Загрузка...']) : null}
+            <div className="pending"></div>
+            {state.pending ? drawText(['Подождите...', 'Загрузка...']) : null}
         </form>
     )
 };

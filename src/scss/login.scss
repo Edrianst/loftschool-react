@@ -120,6 +120,11 @@
     font-size: 16px;
     padding: 10px 30px;
     border-radius: 5px;
+    transition: .3s;
+    &:hover {
+        background-color: $yellowHover;
+        box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+    }
 }
 
 .input__row {
@@ -131,4 +136,10 @@
 
 .input__block {
     flex: 0 0 48%;
+}
+
+.pending {
+    position: absolute;
+    bottom: 75px;
+    height: 16px;
 }

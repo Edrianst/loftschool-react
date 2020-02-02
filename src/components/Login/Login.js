@@ -1,7 +1,7 @@
 import React from 'react'
 import LoginForm from './LoginForm'
-import Logo from '../../shared/Logo'
-import AuthContainer from "../../shared/AuthContainer"
+import Logo from '../Shared/Logo'
+import AuthContainer from "../Shared/AuthContainer"
 
 const Login = () => {
     return (
