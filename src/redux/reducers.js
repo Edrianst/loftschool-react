@@ -27,7 +27,13 @@ const pending = handleActions({
 
 const profile = handleActions({
     [fetchProfileSuccess]: (state, action) => action.payload
-}, {});
+}, {
+    cardNumber: '',
+    cardName: '',
+    expiryDate: '',
+    cvc: '',
+    token: ''
+});
 
 const error = handleActions({
     [fetchAuthFailure]: (state, action) => action.payload,

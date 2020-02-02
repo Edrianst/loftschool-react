@@ -20,7 +20,7 @@ store.subscribe(()=> {
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <App data-testid="App"/>
         </BrowserRouter>
     </Provider>,
     document.getElementById('root')
