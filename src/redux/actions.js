@@ -1,11 +1,11 @@
 import { createAction } from 'redux-actions';
-import { authRequest as auth} from './constants';
-import { authSuccess as success} from './constants';
-import { logoutAction as logout} from './constants';
-import { authFailure as failure} from './constants';
-import { profileRequest as profile} from './constants';
-import { profileSuccess } from './constants';
-import { profileFailure } from './constants';
+import { authRequest as auth} from './types';
+import { authSuccess as success} from './types';
+import { logoutAction as logout} from './types';
+import { authFailure as failure} from './types';
+import { profileRequest as profile} from './types';
+import { profileSuccess } from './types';
+import { profileFailure } from './types';
 
 export const fetchAuthRequest = createAction(auth);
 export const fetchAuthSuccess = createAction(success);
