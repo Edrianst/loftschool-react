@@ -7,7 +7,7 @@ const Login = () => {
     return (
         <AuthContainer>
             <Logo />
-            <LoginForm/>
+            <LoginForm />
         </AuthContainer>
     )
 };
