@@ -6,6 +6,10 @@ import { authFailure as failure} from './types';
 import { profileRequest as profile} from './types';
 import { profileSuccess } from './types';
 import { profileFailure } from './types';
+import { addressRequest as address } from './types';
+import { addressSuccess } from './types';
+import { addressFailure } from './types';
+import { routeRequest } from './types';
 
 export const fetchAuthRequest = createAction(auth);
 export const fetchAuthSuccess = createAction(success);
@@ -14,3 +18,7 @@ export const logoutAction = createAction(logout);
 export const fetchProfileRequest = createAction(profile);
 export const fetchProfileSuccess = createAction(profileSuccess);
 export const fetchProfileFailure = createAction(profileFailure);
+export const fetchAddressRequest = createAction(address);
+export const fetchAddressSuccess = createAction(addressSuccess);
+export const fetchAddressFailure = createAction(addressFailure);
+export const fetchRouteRequest = createAction(routeRequest);

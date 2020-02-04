@@ -5,7 +5,10 @@ import {
     fetchProfileFailure,
     fetchProfileRequest,
     fetchProfileSuccess,
-    logoutAction
+    fetchAddressSuccess,
+    logoutAction,
+    fetchAddressRequest,
+    fetchAddressFailure
 } from "./actions";
 
 import { handleActions } from 'redux-actions';
@@ -22,18 +25,19 @@ const pending = handleActions({
     [fetchAuthFailure]: () => false,
     [fetchProfileRequest]: () => true,
     [fetchProfileSuccess]: () => false,
-    [fetchProfileFailure]: () => false
+    [fetchProfileFailure]: () => false,
+    [fetchAddressRequest]: () => true,
+    [fetchAddressSuccess]: () => false,
+    [fetchAddressFailure]: () => false,
 }, false);
 
 const profile = handleActions({
     [fetchProfileSuccess]: (state, action) => action.payload
-}, {
-    cardNumber: '',
-    cardName: '',
-    expiryDate: '',
-    cvc: '',
-    token: ''
-});
+}, null);
+
+const address = handleActions({
+    [fetchAddressSuccess]: (state, action) => action.payload
+}, null);
 
 const error = handleActions({
     [fetchAuthFailure]: (state, action) => action.payload,
@@ -46,5 +50,6 @@ export default combineReducers({
     isLoggedIn,
     pending,
     profile,
+    address,
     error
 });

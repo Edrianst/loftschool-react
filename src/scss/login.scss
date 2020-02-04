@@ -27,7 +27,7 @@
 
 .form {
     background-color: $white;
-    padding: 65px 50px;
+    padding: 50px 50px;
     border-radius: 5px;
      &--profile {
          text-align: center;
@@ -140,6 +140,23 @@
 
 .pending {
     position: absolute;
-    bottom: 75px;
-    height: 16px;
+    bottom: 55px;
+    left: 40%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(to right, $blue, $lightblue);
+    animation: 1s linear 0s infinite rotate;
 }
+
+.pending__inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+

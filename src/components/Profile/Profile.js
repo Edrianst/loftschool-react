@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import McLogo from "./McIcon";
 import Header from "../Shared/Header/Header";
-import {fetchProfileRequest} from "../../redux/actions";
+import {fetchAddressRequest, fetchProfileRequest} from "../../redux/actions";
 import {useSelector, useDispatch} from "react-redux";
 
 const Profile = () => {
     const profile = useSelector(state => state.profile);
     const dispatch = useDispatch();
-    const [inputData, setData] = useState({cardNumber: profile.cardNumber, expiryDate: profile.expiryDate, cardName: profile.cardName, cvc: profile.cvc});
+    const [inputData, setData] = useState({
+        cardNumber: profile ? profile.cardNumber : '',
+        expiryDate: profile ? profile.expiryDate : '',
+        cardName: profile ? profile.cardName : '',
+        cvc: profile ? profile.cvc : ''
+    });
+
     const handleChange = ({ target }) => {setData({...inputData, [target.name]: target.value})};
     const handleSubmit = e => {
         e.preventDefault();
@@ -15,9 +21,9 @@ const Profile = () => {
             cardNumber: inputData.cardNumber,
             expiryDate: inputData.expiryDate,
             cardName: inputData.cardName.toUpperCase(),
-            cvc: inputData.cvc,
-            token: profile.token
+            cvc: inputData.cvc
         }));
+        dispatch(fetchAddressRequest());
     };
     return (
         <>

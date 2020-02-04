@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {fetchAuthRequest} from "../../redux/actions";
-import { drawText } from "../Shared/pending";
-import {useSelector, useDispatch} from "react-redux";
+import { fetchAuthRequest } from "../../redux/actions";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 
 const LoginForm = () => {
@@ -23,7 +22,6 @@ const LoginForm = () => {
         history.push('/map');
     }
     return (
-
         <form action="" method="" onSubmit={handleSubmit} className="form" id="loginForm" data-testid="LoginForm">
             <h1 className="form__title">Войти</h1>
             <div className="form__subtitle">
@@ -40,8 +38,7 @@ const LoginForm = () => {
                        onChange={handleChange} required/>
             </div>
             <input type="submit" value="Войти" data-testid="submit-button" className="form__btn"/>
-            <div className="pending"></div>
-            {state.pending ? drawText(['Подождите...', 'Загрузка...']) : null}
+            {state.pending ? <div className="pending"><div className="pending__inner"></div></div> : null}
         </form>
     )
 };
