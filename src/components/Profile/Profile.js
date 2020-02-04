@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import McLogo from "./McIcon";
 import Header from "../Shared/Header/Header";
-import {fetchAddressRequest, fetchProfileRequest} from "../../redux/actions";
-import {useSelector, useDispatch} from "react-redux";
+import { fetchAddressRequest, fetchProfileRequest } from "../../redux/actions";
+import { useSelector, useDispatch } from "react-redux";
 
 const Profile = () => {
     const profile = useSelector(state => state.profile);
@@ -14,8 +14,10 @@ const Profile = () => {
         cvc: profile ? profile.cvc : ''
     });
 
-    const handleChange = ({ target }) => {setData({...inputData, [target.name]: target.value})};
-    const handleSubmit = e => {
+    const handleChange =  useCallback(({target}) =>
+         {setData({...inputData, [target.name]: target.value})}, [inputData]);
+
+    const handleSubmit = useCallback( e => {
         e.preventDefault();
         dispatch(fetchProfileRequest({
             cardNumber: inputData.cardNumber,
@@ -24,7 +26,8 @@ const Profile = () => {
             cvc: inputData.cvc
         }));
         dispatch(fetchAddressRequest());
-    };
+    }, [inputData, dispatch]);
+
     return (
         <>
             <Header />

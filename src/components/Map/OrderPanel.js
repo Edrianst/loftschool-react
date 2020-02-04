@@ -15,13 +15,12 @@ export const OrderPanel = () => {
     return (
         <div className="container">
             <div className="map__panel">
-                {profile === null ?
-                <>
-                    <h1>Заполните платежные данные</h1>
-                    <p className="panel__subtext">Укажите информацию о банковской карте, чтобы сделать заказ.</p>
-                    <button className="form__btn" onClick={handleClick}>Перейти в профиль</button>
-                </> :
-                   <OrderForm /> }
+                {profile ? <OrderForm /> :
+                    <>
+                        <h1>Заполните платежные данные</h1>
+                        <p className="panel__subtext">Укажите информацию о банковской карте, чтобы сделать заказ.</p>
+                        <button className="form__btn" onClick={handleClick}>Перейти в профиль</button>
+                    </> }
             </div>
         </div>
     )

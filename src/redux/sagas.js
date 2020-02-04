@@ -5,9 +5,9 @@ import {
     fetchAddressSuccess,
     fetchAuthFailure,
     fetchAuthRequest,
-    fetchAuthSuccess,
+    fetchAuthSuccess, fetchProfileFailure,
     fetchProfileRequest,
-    fetchProfileSuccess, fetchRouteRequest
+    fetchProfileSuccess, fetchRouteFailure, fetchRouteRequest, fetchRouteSuccess
 } from "./actions";
 
 const authRequest = (data) =>
@@ -41,8 +41,8 @@ function* authorizationSaga() {
         try {
             const response = yield call(authRequest, action.payload);
             response.success ? yield put(fetchAuthSuccess(response)) : yield put(fetchAuthFailure(response));
-        } catch (e) {
-            console.log(e)
+        } catch (err) {
+            yield put(fetchAuthFailure(err))
         }
     }
 }
@@ -52,9 +52,9 @@ function* paymentSaga() {
         const action = yield take(fetchProfileRequest);
         try {
             const response = yield call(setProfile, action.payload);
-            response.success ? yield put(fetchProfileSuccess(action.payload)) : yield put(fetchAuthFailure(response));
-        } catch (e) {
-            console.log(e)
+            response.success ? yield put(fetchProfileSuccess(action.payload)) : yield put(fetchProfileFailure(response));
+        } catch (err) {
+            yield put(fetchProfileFailure(err))
         }
     }
 }
@@ -75,9 +75,9 @@ function* routeSaga() {
         const action = yield take(fetchRouteRequest);
         try {
             const response = yield call(routesRequest, action.payload);
-            console.log(response);
+            yield put(fetchRouteSuccess({status: true, coordinates: response}))
         } catch (err) {
-            console.log(err);
+            yield put(fetchRouteFailure(err));
         }
     }
 }

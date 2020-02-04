@@ -17,4 +17,7 @@ export const addressSuccess = 'FETCH_ADDRESS_SUCCESS';
 export const addressFailure = 'FETCH_ADDRESS_FAILURE';
 
 //routes
-export const routeRequest = 'FETCH_ROUTES_REQUEST';
+export const routeRequest = 'FETCH_ROUTE_REQUEST';
+export const routeSuccess = 'ROUTE_SUCCESS';
+export const routeFailure = 'ROUTE_FAILURE';
+export const cancelOrder = 'CANCEL_ORDER';
