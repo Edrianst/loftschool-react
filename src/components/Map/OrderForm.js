@@ -1,4 +1,4 @@
-import React, { useState, useCallback,useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import Select from 'react-select';
 import { useSelector, useDispatch } from "react-redux";
 import {fetchRouteRequest, cancelOrder} from "../../redux/actions";
@@ -10,21 +10,11 @@ export const OrderForm = () => {
     const [addressOne, setAddressOne] = useState(null);
     const [addressTwo, setAddressTwo] = useState(null);
     const [order, setOrder] = useState(false);
-    const [options, setOptions] = useState(null);
+    const options = state.address.map(option => ({value: option, label: option}));
+    const availableOptions = options.filter(
+            option => ![addressOne, addressTwo].includes(option.label)
+    );
 
-    useEffect(()=>{
-        setOptions(getOptions());
-    },[]);
-
-    const getOptions = () => {
-        let options = state.address.map(option => ({value: option, label: option}));
-        let availableOptions = options.filter(
-                option => ![addressOne, addressTwo].includes(option.label)
-        );
-
-        return availableOptions;
-    };
-    
     const handleSubmit = useCallback(e => {
             e.preventDefault();
             dispatch(fetchRouteRequest({
@@ -50,7 +40,8 @@ export const OrderForm = () => {
             status: false,
             coordinates: null
         }));
-//        dispatch(fetchAddressRequest());
+        setAddressOne(null);
+        setAddressTwo(null);
     }, [setOrder, dispatch]);
 
     return (
@@ -66,7 +57,7 @@ export const OrderForm = () => {
                         <div className="address__group">
                             <Select
                                     className="address__input"
-                                    options={options}
+                                    options={availableOptions}
                                     placeholder="Откуда"
                                     onChange={handleAddressOne}
                                     isClearable
@@ -75,7 +66,7 @@ export const OrderForm = () => {
                             />
                             <Select
                                     className="address__input"
-                                    options={options}
+                                    options={availableOptions}
                                     placeholder="Куда"
                                     onChange={handleAddressTwo}
                                     isClearable
