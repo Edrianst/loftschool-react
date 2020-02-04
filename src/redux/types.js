@@ -10,3 +10,11 @@ export const logoutAction = 'LOGOUT_ACTION';
 export const profileRequest = 'FETCH_PROFILE_REQUEST';
 export const profileSuccess = 'SAVE_PROFILE_SUCCESS';
 export const profileFailure = 'SAVE_PROFILE_FAILURE';
+
+//address
+export const addressRequest = 'FETCH_ADDRESS_REQUEST';
+export const addressSuccess = 'FETCH_ADDRESS_SUCCESS';
+export const addressFailure = 'FETCH_ADDRESS_FAILURE';
+
+//routes
+export const routeRequest = 'FETCH_ROUTES_REQUEST';

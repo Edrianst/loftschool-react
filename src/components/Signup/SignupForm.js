@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { fetchAuthRequest } from "../../redux/actions";
-import { drawText } from "../Shared/pending";
+//import { drawText } from "../Shared/pending";
 import { useSelector, useDispatch} from "react-redux";
 import { useHistory } from 'react-router-dom';
 
@@ -49,8 +49,7 @@ const SignupForm = () => {
                     <input type="password" name="password" className="form__input" value={inputData.password} data-testid="password-field" onChange={handleChange} required />
                 </div>
                 <input type="submit" value="Зарегистрироваться" data-testid="submit-button" className="form__btn" />
-                <div className="pending"></div>
-                {state.pending ? drawText(['Подождите...', 'Загрузка...']) : null}
+                {state.pending ? <div className="pending"><div className="pending__inner"></div></div> : null}
             </form>
     )
 };
