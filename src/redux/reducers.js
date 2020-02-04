@@ -8,7 +8,10 @@ import {
     fetchAddressSuccess,
     logoutAction,
     fetchAddressRequest,
-    fetchAddressFailure
+    fetchAddressFailure,
+    fetchRouteSuccess,
+    fetchRouteFailure,
+    cancelOrder
 } from "./actions";
 
 import { handleActions } from 'redux-actions';
@@ -42,14 +45,24 @@ const address = handleActions({
 const error = handleActions({
     [fetchAuthFailure]: (state, action) => action.payload,
     [fetchProfileFailure]: (state, action) => action.payload,
+    [fetchRouteFailure]: (state, action) => action.payload,
     [fetchAuthRequest]: () => null,
     [fetchProfileRequest]: () => null
 }, null);
+
+const route = handleActions({
+    [fetchRouteSuccess]: (state, action) => action.payload,
+    [cancelOrder]: (state, action) => action.payload
+},{
+    status: false,
+    coordinates: null
+});
 
 export default combineReducers({
     isLoggedIn,
     pending,
     profile,
     address,
+    route,
     error
 });
