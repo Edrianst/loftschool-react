@@ -3,6 +3,16 @@ import Select from 'react-select';
 import { useSelector, useDispatch } from "react-redux";
 import {fetchRouteRequest, cancelOrder} from "../../redux/actions";
 
+const customStyle = {
+    control: (provided) => ({
+        ...provided,
+        display: 'flex',
+        border: 'none',
+        borderRadius: 0,
+        borderBottom: '1px solid',
+    })
+};
+
 export const OrderForm = () => {
 
     const state = useSelector(state => state);
@@ -58,6 +68,7 @@ export const OrderForm = () => {
                             <Select
                                     className="address__input"
                                     options={availableOptions}
+                                    styles={customStyle}
                                     placeholder="Откуда"
                                     onChange={handleAddressOne}
                                     isClearable
@@ -67,6 +78,7 @@ export const OrderForm = () => {
                             <Select
                                     className="address__input"
                                     options={availableOptions}
+                                    styles={customStyle}
                                     placeholder="Куда"
                                     onChange={handleAddressTwo}
                                     isClearable
