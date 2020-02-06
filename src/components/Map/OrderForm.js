@@ -15,12 +15,12 @@ const customStyle = {
 
 export const OrderForm = () => {
 
-    const state = useSelector(state => state);
+    const address = useSelector(state => state.address);
     const dispatch = useDispatch();
     const [addressOne, setAddressOne] = useState(null);
     const [addressTwo, setAddressTwo] = useState(null);
     const [order, setOrder] = useState(false);
-    const options = state.address.map(option => ({value: option, label: option}));
+    const options = address.map(option => ({value: option, label: option}));
     const availableOptions = options.filter(
             option => ![addressOne, addressTwo].includes(option.label)
     );
@@ -86,7 +86,7 @@ export const OrderForm = () => {
                                     noOptionsMessage={() => 'Введите корректный адрес'}
                             />
                         </div>
-                        <input type="submit" className="form__btn" value="Вызвать такси" disabled={!addressOne || !addressTwo}/>
+                        <input type="submit" className="form__btn" value="Вызвать такси" data-testid="submit" disabled={!addressOne || !addressTwo}/>
                     </form>
                 )}
             </>
