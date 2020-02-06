@@ -39,7 +39,7 @@ const LoginForm = () => {
                 <input type="password" name="password" className="form__input" value={inputData.password} data-testid="password-field"
                        onChange={handleChange} required/>
             </div>
-            <input type="submit" value="Войти" data-testid="submit-button" className="form__btn"/>
+            <input type="submit" value="Войти" data-testid="authButton" className="form__btn"/>
             {state.pending ? <div className="pending"><div className="pending__inner"></div></div> : null}
         </form>
     )
