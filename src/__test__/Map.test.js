@@ -1,15 +1,35 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import Map from '../components/Map/Map';
+import { render, fireEvent } from '@testing-library/react';
+import { useDispatch } from 'react-redux';
+import { Provider } from "react-redux";
+import { OrderForm } from '../components/Map/OrderForm';
+import MockStore from 'redux-mock-store';
+
+const mockstore = MockStore();
+const store = mockstore({
+    address: [],
+    profile: {
+        cardName: 'name'
+    }
+});
+
+jest.mock("react-redux", () => ({
+    Provider: (props) => (<>{props.children}</>),
+    useSelector: () => ([]),
+    useDispatch: jest.fn()
+}));
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
     Map: () => ({})
 }));
 
-it('renders correctly', () => {
-    window.URL.createObjectURL = jest.fn();
+describe('submit button', () => {
+    it('triggers function', () => {
+        const {queryByTestId} = render(<Provider store={store}><OrderForm /></Provider>);
 
-    const {queryByTestId} = render(<Map />);
+        fireEvent.click(queryByTestId('submit'));
 
-    expect(queryByTestId("Map")).toBeTruthy();
+        expect(queryByTestId('submit')).toBeTruthy();
+        expect(useDispatch).toHaveBeenCalled();
+    })
 });

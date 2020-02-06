@@ -35,3 +35,7 @@ export const fetchRouteRequest = createAction(routeRequest);
 export const fetchRouteSuccess = createAction(routeSuccess);
 export const fetchRouteFailure = createAction(routeFailure);
 export const cancelOrder = createAction(cancel);
+
+export default {
+    fetchRouteRequest
+}

@@ -20,7 +20,7 @@ const Map = () => {
 
         setTimeout(() => {
             if(route.status) drawRoute(map, route.coordinates);
-        }, 1000);
+        }, 500);
 
         return () => {
             map.remove();
