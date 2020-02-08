@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Select from 'react-select';
 import { useSelector, useDispatch } from "react-redux";
-import {fetchRouteRequest, cancelOrder} from "../../redux/actions";
+import {fetchRouteRequest, cancelOrder} from "../../modules/Map/actions";
 
 const customStyle = {
     control: (provided) => ({
