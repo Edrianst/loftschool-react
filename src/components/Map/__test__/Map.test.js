@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { useDispatch } from 'react-redux';
 import { Provider } from "react-redux";
-import { OrderForm } from '../components/Map/OrderForm';
+import { OrderForm } from '../OrderForm';
 import MockStore from 'redux-mock-store';
 
 const mockstore = MockStore();

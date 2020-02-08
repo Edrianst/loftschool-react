@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import { Link, useHistory } from "react-router-dom";
-import { fetchAuthRequest } from "../../redux/actions";
+import { fetchAuthRequest } from "../../modules/Auth/actions";
 import { useSelector, useDispatch} from "react-redux";
 
 const SignupForm = () => {
