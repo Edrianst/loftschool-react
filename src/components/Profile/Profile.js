@@ -1,7 +1,8 @@
 import React, {useCallback, useState} from 'react';
 import McLogo from "./McIcon";
 import Header from "../Shared/Header/Header";
-import { fetchAddressRequest, fetchProfileRequest } from "../../redux/actions";
+import { fetchProfileRequest } from "../../modules/Profile/actions";
+import { fetchAddressRequest } from "../../modules/Map/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 const Profile = () => {
