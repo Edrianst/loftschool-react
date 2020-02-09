@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import { fetchAuthRequest } from "../../redux/actions";
-import { drawText } from "../Shared/pending";
+import React, {useCallback, useState} from 'react';
+import { Link, useHistory } from "react-router-dom";
+import { fetchAuthRequest } from "../../modules/Auth/actions";
 import { useSelector, useDispatch} from "react-redux";
-import { useHistory } from 'react-router-dom';
 
 const SignupForm = () => {
     const history = useHistory();
     const state = useSelector(state => state);
     const dispatch = useDispatch();
     const [ inputData, setData ] = useState({ email: '', name: '', surname: '', password: ''});
-    const handleChange = ({ target }) => { setData({ ...inputData, [target.name]: target.value }) };
-    const handleSubmit = e => {
+    const handleChange = useCallback(({target}) =>
+        {setData({...inputData, [target.name]: target.value})}, [inputData]);
+
+    const handleSubmit = useCallback(e => {
         e.preventDefault();
         dispatch(fetchAuthRequest({
             email: inputData.email,
@@ -20,7 +20,8 @@ const SignupForm = () => {
             surname: inputData.surname.toUpperCase(),
             path: 'register'
         }));
-    };
+    }, [inputData, dispatch]);
+
     if(state.isLoggedIn) {
         history.push('/map');
     }
@@ -49,8 +50,7 @@ const SignupForm = () => {
                     <input type="password" name="password" className="form__input" value={inputData.password} data-testid="password-field" onChange={handleChange} required />
                 </div>
                 <input type="submit" value="Зарегистрироваться" data-testid="submit-button" className="form__btn" />
-                <div className="pending"></div>
-                {state.pending ? drawText(['Подождите...', 'Загрузка...']) : null}
+                {state.pending ? <div className="pending"><div className="pending__inner"></div></div> : null}
             </form>
     )
 };
