@@ -6,7 +6,7 @@ import { address, route } from './Map';
 import { pending, error} from './Shared/reducers';
 import { sagas as authSaga } from "./Auth/";
 import { sagas as profileSaga } from "./Profile/";
-import { sagas as MapSaga } from "./Map /";
+import { sagas as MapSaga } from "./Map/";
 
 export default combineReducers({
     isLoggedIn,
