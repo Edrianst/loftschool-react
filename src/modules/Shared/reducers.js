@@ -1,5 +1,4 @@
 import {handleActions} from "redux-actions";
-import { combineReducers } from "redux";
 import {fetchAddressFailure, fetchAddressRequest, fetchAddressSuccess, fetchRouteFailure} from "../Map/actions";
 import{fetchAuthFailure, fetchAuthRequest, fetchAuthSuccess} from "../Auth/actions";
 import {fetchProfileFailure, fetchProfileRequest, fetchProfileSuccess} from "../Profile/actions";

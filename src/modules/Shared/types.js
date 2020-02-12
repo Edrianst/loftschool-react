@@ -20,4 +20,5 @@ export const addressFailure = 'FETCH_ADDRESS_FAILURE';
 export const routeRequest = 'FETCH_ROUTE_REQUEST';
 export const routeSuccess = 'ROUTE_SUCCESS';
 export const routeFailure = 'ROUTE_FAILURE';
+export const makeOrder = 'MAKE_ORDER';
 export const cancelOrder = 'CANCEL_ORDER';

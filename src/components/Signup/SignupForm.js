@@ -1,56 +1,102 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 import { Link, useHistory } from "react-router-dom";
 import { fetchAuthRequest } from "../../modules/Auth/actions";
 import { useSelector, useDispatch} from "react-redux";
+import { Button, TextField } from "@material-ui/core";
+import { useForm } from "react-hook-form";
+
+import * as yup from "yup";
+
+const RegisterSchema = yup.object().shape({
+    email: yup.string().email('Введите корректный адрес').required('Это обязательное поле'),
+    name: yup.string().required('Это обязательное поле'),
+    surname: yup.string().required('Это обязательное поле'),
+    password: yup.string().required('Это обязательное поле')
+});
+
 
 const SignupForm = () => {
     const history = useHistory();
     const state = useSelector(state => state);
     const dispatch = useDispatch();
-    const [ inputData, setData ] = useState({ email: '', name: '', surname: '', password: ''});
-    const handleChange = useCallback(({target}) =>
-        {setData({...inputData, [target.name]: target.value})}, [inputData]);
+    const {register, handleSubmit, errors} = useForm({mode: 'onChange', validationSchema: RegisterSchema});
 
-    const handleSubmit = useCallback(e => {
-        e.preventDefault();
-        dispatch(fetchAuthRequest({
-            email: inputData.email,
-            password: inputData.password,
-            name: inputData.name.toUpperCase(),
-            surname: inputData.surname.toUpperCase(),
-            path: 'register'
-        }));
-    }, [inputData, dispatch]);
+    const onSubmit = (data) => {
+        data.path = 'register';
+        dispatch(fetchAuthRequest(data))
+    };
 
     if(state.isLoggedIn) {
         history.push('/map');
     }
     return (
-            <form action="" method="" onSubmit={handleSubmit} className="form" id="loginForm" data-testid="LoginForm">
+            <form action="" method="" onSubmit={handleSubmit(onSubmit)} className="form" id="loginForm" data-testid="LoginForm">
                 <h1 className="form__title">Регистрация</h1>
                 <div className="form__subtitle">
                     Уже зарегистрированы? <Link to="/login">Войти</Link>
                 </div>
                 <div className="input__group">
-                    <label htmlFor="email" className="input__label">Адрес электронной почты<sup>*</sup></label>
-                    <input type="text" name="email" className="form__input" value={inputData.email} data-testid="email-field" onChange={handleChange} required />
+                    <TextField
+                        label="Адрес электронной почты"
+                        placeholder="Адрес электронной почты"
+                        type="email"
+                        inputRef={register}
+                        helperText={(state.error && 'Такой пользователь уже существует') || (errors.email && errors.email.message)}
+                        error={(errors.email && true) || (state.error && true)}
+                        name="email"
+                        className="form__input"
+                        data-testid="email-field"
+                    />
                 </div>
                 <div className="input__row">
                     <div className="input__block">
-                        <label htmlFor="name" className="input__label">Имя</label>
-                        <input type="text" name="name" className="form__input" value={inputData.name} onChange={handleChange} />
+                        <TextField
+                            label="Имя"
+                            placeholder="Имя"
+                            inputRef={register}
+                            helperText={errors.name && errors.name.message}
+                            error={errors.name && true}
+                            type="text"
+                            name="name"
+                            className="form__input"
+                        />
                     </div>
                     <div className="input__block">
-                        <label htmlFor="surname" className="input__label">Фамилия</label>
-                        <input type="text" name="surname" className="form__input" value={inputData.surname} onChange={handleChange} />
+                        <TextField
+                            label="Фамилия"
+                            placeholder="Фамилия"
+                            inputRef={register}
+                            helperText={errors.surname && errors.surname.message}
+                            error={errors.surname && true}
+                            type="text"
+                            name="surname"
+                            className="form__input"
+                         />
                     </div>
                 </div>
                 <div className="input__group">
-                    <label htmlFor="password" className="input__label">Пароль<sup>*</sup></label>
-                    <input type="password" name="password" className="form__input" value={inputData.password} data-testid="password-field" onChange={handleChange} required />
+                    <TextField
+                        label="Пароль"
+                        placeholder="Пароль"
+                        inputRef={register}
+                        helperText={errors.password && errors.password.message}
+                        error={errors.password && true}
+                        type="password"
+                        name="password"
+                        className="form__input"
+                    />
                 </div>
-                <input type="submit" value="Зарегистрироваться" data-testid="submit-button" className="form__btn" />
-                {state.pending ? <div className="pending"><div className="pending__inner"></div></div> : null}
+                {state.pending ?
+                    <div className="pending"><div className="pending__inner"></div></div>
+                    :
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        data-testid="submit-button"
+                        className="form__btn">
+                        Зарегистрироваться
+                    </Button>}
             </form>
     )
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from "@material-ui/core/Button";
 import { logoutAction } from "../../../modules/Auth/actions";
 import { useDispatch } from "react-redux";
 
@@ -12,9 +13,9 @@ const HeaderMenu = () => {
 
     return (
         <ul className="header__menu">
-            <li className="menu__item"><Link to="/map" >Карта</Link></li>
-            <li className="menu__item"><Link to="/profile" >Профиль</Link></li>
-            <li className="menu__item"><a href="/" onClick={handleClick} >Выйти</a></li>
+            <li><Button component={Link} to="/map">Карта</Button></li>
+            <li><Button component={Link} to="/profile">Профиль</Button></li>
+            <li><Button component={Link} to="/login" onClick={handleClick}>Выйти</Button></li>
         </ul>
     )
 };

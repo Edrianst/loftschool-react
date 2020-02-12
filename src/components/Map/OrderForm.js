@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from "react";
 import Select from 'react-select';
 import { useSelector, useDispatch } from "react-redux";
-import { fetchRouteRequest, cancelOrder } from "../../modules/Map/actions";
+import { fetchRouteRequest, makeOrder, cancelOrder } from "../../modules/Map/actions";
+import { Button } from "@material-ui/core";
+import { useForm, Controller } from "react-hook-form";
 
 const customStyle = {
     control: (provided) => ({
@@ -14,79 +16,95 @@ const customStyle = {
 };
 
 export const OrderForm = () => {
-
-    const address = useSelector(state => state.address);
-    const dispatch = useDispatch();
+    const { register, handleSubmit, control } = useForm();
     const [addressOne, setAddressOne] = useState(null);
     const [addressTwo, setAddressTwo] = useState(null);
-    const [order, setOrder] = useState(false);
-    const options = address.map(option => ({value: option, label: option}));
+    const state = useSelector(state => state);
+    const dispatch = useDispatch();
+    const options = state.address.map(option => ({value: option, label: option}));
     const availableOptions = options.filter(
             option => ![addressOne, addressTwo].includes(option.label)
     );
-
-    const handleSubmit = useCallback(e => {
-            e.preventDefault();
-            dispatch(fetchRouteRequest({
-                address1: addressOne,
-                address2: addressTwo
-            }));
-            setOrder(true);
-        }, [addressOne, addressTwo, dispatch]);
-
-    const handleAddressOne = useCallback(e => {
-        const value = e ? e.value : null;
-        setAddressOne(value);
-    }, [setAddressOne]);
-
-    const handleAddressTwo = useCallback( e => {
-        const value = e ? e.value: null;
-        setAddressTwo(value);
-    }, [setAddressTwo]);
+    const onSubmit = (data) => {
+        dispatch(fetchRouteRequest({
+            address1: data.address1.value,
+            address2: data.address2.value
+        }));
+        dispatch(makeOrder());
+    };
 
     const handleCancelOrder = useCallback(() => {
-        setOrder(false);
         dispatch(cancelOrder({
             status: false,
             coordinates: null
         }));
         setAddressOne(null);
         setAddressTwo(null);
-    }, [setOrder, dispatch]);
+    }, [dispatch]);
 
     return (
             <>
-                {order ? (
+                {state.order ? (
                     <>
                         <h1>Заказ размещён</h1>
                         <p className="panel__subtext">Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.</p>
-                        <button className="form__btn" onClick={handleCancelOrder} >Сделать новый заказ</button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            className="form__btn"
+                            onClick={handleCancelOrder}>
+                            Сделать новый заказ
+                        </Button>
                     </>
                     ) : (
-                    <form action="" method="" onSubmit={handleSubmit}>
+                    <form action="" method="" onSubmit={handleSubmit(onSubmit)}>
                         <div className="address__group">
-                            <Select
-                                    className="address__input"
-                                    options={availableOptions}
-                                    styles={customStyle}
-                                    placeholder="Откуда"
-                                    onChange={handleAddressOne}
-                                    isClearable
-                                    isSearchable
-                                    noOptionsMessage={() => 'Введите корректный адрес'}
+                            <Controller
+                                as={Select}
+                                name="address1"
+                                inputRef={register}
+                                control={control}
+                                className="address__input"
+                                options={availableOptions}
+                                styles={customStyle}
+                                placeholder="Откуда"
+                                isClearable
+                                isSearchable
+                                onChange={([selected]) => {
+                                    setAddressOne(selected.value);
+                                    return { value: selected };
+                                }}
+                                noOptionsMessage={() => 'Введите корректный адрес'}
                             />
-                            <Select
-                                    className="address__input"
-                                    options={availableOptions}
-                                    styles={customStyle}
-                                    placeholder="Куда"
-                                    onChange={handleAddressTwo}
-                                    isClearable
-                                    isSearchable
-                                    noOptionsMessage={() => 'Введите корректный адрес'}
+                            <Controller
+                                as={Select}
+                                name="address2"
+                                className="address__input"
+                                inputRef={register}
+                                control={control}
+                                options={availableOptions}
+                                styles={customStyle}
+                                placeholder="Куда"
+                                isClearable
+                                isSearchable
+                                onChange={([selected]) => {
+                                    setAddressTwo(selected.value);
+                                    return {value: selected};
+                                }}
+                                noOptionsMessage={() => 'Введите корректный адрес'}
                             />
                         </div>
-                        <input type="submit" className="form__btn" value="Вызвать такси" data-testid="submit" disabled={!addressOne || !addressTwo}/>
+                        {state.pending ?
+                            <div className="pending"><div className="pending__inner"></div></div>
+                                : <Button
+                                    type="submit"
+                                    className="form__btn"
+                                    variant="contained"
+                                    color="primary"
+                                    data-testid="submit"
+                                    disabled={!addressOne || !addressTwo}>
+                                    Вызвать такси
+                                </Button>}
                     </form>
                 )}
             </>
