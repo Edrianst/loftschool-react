@@ -19,6 +19,7 @@ const ProfileSchema = yup.object().shape({
     cvc: yup.string()
             .min(3, 'Должно быть 3 цифры')
             .max(3, 'Должно быть 3 цифры')
+            .required('Это обязательное поле')
 });
 
 const Profile = () => {
