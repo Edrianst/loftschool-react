@@ -8,16 +8,9 @@
     margin-top: 50px;
     z-index: 10000;
     .form__btn {
+        display: block;
         margin: 0 auto;
         margin-top: 30px;
-        &:disabled {
-            background-color: $disabled;
-            pointer-events: none;
-            color: $disabled-text;
-            &:hover {
-                box-shadow: none;
-            }
-        }
     }
 }
 
@@ -33,3 +26,4 @@
 .address__group {
     padding: 0;
 }
+

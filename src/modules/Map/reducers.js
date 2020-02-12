@@ -1,5 +1,5 @@
 import {handleActions} from "redux-actions";
-import {cancelOrder, fetchAddressSuccess, fetchRouteSuccess} from "./actions";
+import {makeOrder, cancelOrder, fetchAddressSuccess, fetchRouteSuccess} from "./actions";
 
 export const address = handleActions({
     [fetchAddressSuccess]: (state, action) => action.payload
@@ -12,3 +12,8 @@ export const route = handleActions({
     status: false,
     coordinates: null
 });
+
+export const order = handleActions({
+    [makeOrder]: () => true,
+    [cancelOrder]: () => false
+}, false);

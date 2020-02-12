@@ -18,9 +18,9 @@ const Map = () => {
             zoom: 15
         });
 
-        setTimeout(() => {
+        map.on('load', () => {
             if(route.status) drawRoute(map, route.coordinates);
-        }, 500);
+        });
 
         return () => {
             map.remove();
