@@ -4,14 +4,22 @@ import { fetchAuthRequest } from "../../modules/Auth/actions";
 import { useSelector, useDispatch} from "react-redux";
 import { Button, TextField } from "@material-ui/core";
 import { useForm } from "react-hook-form";
+import {fieldValidator} from "./validate";
 
 import * as yup from "yup";
 
 const RegisterSchema = yup.object().shape({
-    email: yup.string().email('Введите корректный адрес').required('Это обязательное поле'),
-    name: yup.string().required('Это обязательное поле'),
-    surname: yup.string().required('Это обязательное поле'),
-    password: yup.string().required('Это обязательное поле')
+    email: yup.string()
+            .email('Введите корректный адрес')
+            .required('Это обязательное поле'),
+    name: yup.string()
+            .max(30, 'Не длиннее 30 символов')
+            .required('Это обязательное поле'),
+    surname: yup.string()
+            .max(30, 'Не длиннее 30 символов')
+            .required('Это обязательное поле'),
+    password: yup.string()
+            .required('Это обязательное поле')
 });
 
 
@@ -24,6 +32,10 @@ const SignupForm = () => {
     const onSubmit = (data) => {
         data.path = 'register';
         dispatch(fetchAuthRequest(data))
+    };
+
+    const handleInput = ({target}) => {
+        target.value = fieldValidator(target.value);
     };
 
     if(state.isLoggedIn) {
@@ -55,7 +67,8 @@ const SignupForm = () => {
                             placeholder="Имя"
                             inputRef={register}
                             helperText={errors.name && errors.name.message}
-                            error={errors.name && true}
+                            error={!!errors.name}
+                            onInput={handleInput}
                             type="text"
                             name="name"
                             className="form__input"
@@ -67,7 +80,8 @@ const SignupForm = () => {
                             placeholder="Фамилия"
                             inputRef={register}
                             helperText={errors.surname && errors.surname.message}
-                            error={errors.surname && true}
+                            error={!!errors.surname}
+                            onInput={handleInput}
                             type="text"
                             name="surname"
                             className="form__input"
@@ -80,7 +94,7 @@ const SignupForm = () => {
                         placeholder="Пароль"
                         inputRef={register}
                         helperText={errors.password && errors.password.message}
-                        error={errors.password && true}
+                        error={!!errors.password}
                         type="password"
                         name="password"
                         className="form__input"

@@ -8,17 +8,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { DatePicker } from "@material-ui/pickers";
 import { Button, TextField } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
-import {numberValidator, nameValidator, cvcValidator} from "./validate";
+import {numberValidator, cardNameValidator, cvcValidator} from "./validate";
 import * as yup from 'yup';
 
 const ProfileSchema = yup.object().shape({
     cardNumber: yup.string()
             .length(19, 'В номере карты должно быть 16 цифр')
             .required('Это обязательное поле'),
-    cardName: yup.string().required('Это обязательное поле'),
+    cardName: yup.string()
+            .max(22, 'Не более 22 символов')
+            .required('Это обязательное поле'),
     cvc: yup.string()
-            .min(3, 'Должно быть 3 цифры')
-            .max(3, 'Должно быть 3 цифры')
+            .length(3, 'Должно быть 3 цифры')
             .required('Это обязательное поле')
 });
 
@@ -45,6 +46,18 @@ const Profile = () => {
         dispatch(fetchProfileRequest(data));
         dispatch(fetchAddressRequest());
         updateInfo(true);
+    };
+
+    const handleCardNumberInput = ({target}) => {
+        target.value = numberValidator(target.value);
+    };
+
+    const handleCardNameInput = ({target}) => {
+        target.value = cardNameValidator(target.value);
+    };
+
+    const handleCvcInput = ({target}) => {
+        target.value = cvcValidator(target.value);
     };
 
     return (
@@ -78,9 +91,9 @@ const Profile = () => {
                                                 className="form__input"
                                                 inputRef={register()}
                                                 defaultValue={values.cardNumber}
-                                                onInput={numberValidator}
+                                                onInput={handleCardNumberInput}
                                                 helperText={errors.cardNumber && errors.cardNumber.message}
-                                                error={errors.cardNumber && true}
+                                                error={!!errors.cardNumber}
                                                 required/>
                                         </div>
                                         <div className="input__group">
@@ -107,8 +120,8 @@ const Profile = () => {
                                                 inputRef={register}
                                                 defaultValue={values.cardName}
                                                 helperText={errors.cardName && errors.cardName.message}
-                                                error={errors.cardName && true}
-                                                onInput={nameValidator}
+                                                error={!!errors.cardName}
+                                                onInput={handleCardNameInput}
                                                 id="cardName"
                                                 required/>
                                         </div>
@@ -120,8 +133,8 @@ const Profile = () => {
                                                 inputRef={register}
                                                 defaultValue={values.cvc}
                                                 helperText={errors.cvc && errors.cvc.message}
-                                                error={errors.cvc && true}
-                                                onInput={cvcValidator}
+                                                error={!!errors.cvc}
+                                                onInput={handleCvcInput}
                                                 className="form__input"
                                                 id="cvc"
                                                 required/>
