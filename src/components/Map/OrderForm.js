@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchRouteRequest, makeOrder, cancelOrder } from "../../modules/Map/actions";
 import { Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
+import {IconTo, IconFrom} from "./Icons";
 
 const customStyle = {
     control: (provided) => ({
@@ -21,10 +22,12 @@ export const OrderForm = () => {
     const [addressTwo, setAddressTwo] = useState(null);
     const state = useSelector(state => state);
     const dispatch = useDispatch();
+
     const options = state.address.map(option => ({value: option, label: option}));
-    const availableOptions = options.filter(
-            option => ![addressOne, addressTwo].includes(option.label)
+
+    const availableOptions = options.filter(option => ![addressOne, addressTwo].includes(option.label)
     );
+
     const onSubmit = (data) => {
         dispatch(fetchRouteRequest({
             address1: data.address1.value,
@@ -32,6 +35,20 @@ export const OrderForm = () => {
         }));
         dispatch(makeOrder());
     };
+
+    const handleSelectOne = ([selected]) => {
+        const value = selected ? selected.value : null;
+        setAddressOne(value);
+        return {value: selected}
+    };
+
+    const handleSelectTwo = ([selected]) => {
+        const value = selected ? selected.value : null;
+        setAddressTwo(value);
+        return {value: selected}
+    };
+
+    const handleOptionMessage = () => 'Введите корректный адрес';
 
     const handleCancelOrder = useCallback(() => {
         dispatch(cancelOrder({
@@ -59,40 +76,40 @@ export const OrderForm = () => {
                     ) : (
                     <form action="" method="" onSubmit={handleSubmit(onSubmit)}>
                         <div className="address__group">
-                            <Controller
-                                as={Select}
-                                name="address1"
-                                inputRef={register}
-                                control={control}
-                                className="address__input"
-                                options={availableOptions}
-                                styles={customStyle}
-                                placeholder="Откуда"
-                                isClearable
-                                isSearchable
-                                onChange={([selected]) => {
-                                    setAddressOne(selected.value);
-                                    return { value: selected };
-                                }}
-                                noOptionsMessage={() => 'Введите корректный адрес'}
-                            />
-                            <Controller
-                                as={Select}
-                                name="address2"
-                                className="address__input"
-                                inputRef={register}
-                                control={control}
-                                options={availableOptions}
-                                styles={customStyle}
-                                placeholder="Куда"
-                                isClearable
-                                isSearchable
-                                onChange={([selected]) => {
-                                    setAddressTwo(selected.value);
-                                    return {value: selected};
-                                }}
-                                noOptionsMessage={() => 'Введите корректный адрес'}
-                            />
+                            <div className="address__select">
+                                <IconFrom />
+                                <Controller
+                                    as={Select}
+                                    name="address1"
+                                    inputRef={register}
+                                    control={control}
+                                    className="address__input"
+                                    options={availableOptions}
+                                    styles={customStyle}
+                                    placeholder="Откуда"
+                                    isClearable
+                                    isSearchable
+                                    onChange={handleSelectOne}
+                                    noOptionsMessage={handleOptionMessage}
+                                />
+                            </div>
+                            <div className="address__select">
+                                <IconTo />
+                                <Controller
+                                    as={Select}
+                                    name="address2"
+                                    className="address__input"
+                                    inputRef={register}
+                                    control={control}
+                                    options={availableOptions}
+                                    styles={customStyle}
+                                    placeholder="Куда"
+                                    isClearable
+                                    isSearchable
+                                    onChange={handleSelectTwo}
+                                    noOptionsMessage={handleOptionMessage}
+                                />
+                            </div>
                         </div>
                         {state.pending ?
                             <div className="pending"><div className="pending__inner"></div></div>
