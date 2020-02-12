@@ -7,10 +7,7 @@ import MockStore from 'redux-mock-store';
 
 const mockstore = MockStore();
 const store = mockstore({
-    address: [],
-    profile: {
-        cardName: 'name'
-    }
+    address: []
 });
 
 jest.mock("react-redux", () => ({
