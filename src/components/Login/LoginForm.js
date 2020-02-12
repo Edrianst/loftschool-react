@@ -1,46 +1,69 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { fetchAuthRequest } from "../../modules/Auth/actions";
 import { useSelector, useDispatch } from "react-redux";
+import { Button, TextField } from "@material-ui/core";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+
+const LoginSchema = yup.object().shape({
+    email: yup.string().email('Введите корректный адрес').required('Это обязательное поле'),
+    password: yup.string().required('Это обязательное поле')
+});
 
 const LoginForm = () => {
-    const history = useHistory();
+    const { register, handleSubmit, errors } = useForm({mode: 'onChange', validationSchema: LoginSchema});
     const state = useSelector(state => state);
+    const history = useHistory();
     const dispatch = useDispatch();
-    const [ inputData, setData ] = useState({email: '', password: ''});
-    const handleChange =  useCallback(({target}) =>
-        {setData({...inputData, [target.name]: target.value})}, [inputData]);
-
-    const handleSubmit = useCallback(e => {
-        e.preventDefault();
-        dispatch(fetchAuthRequest({
-            email: inputData.email,
-            password: inputData.password,
-            path: 'auth'
-        }))
-    }, [inputData, dispatch]);
+    const onSubmit = (data) => {
+        data.path = 'auth';
+        dispatch(fetchAuthRequest(data))
+    };
 
     if(state.isLoggedIn) {
         history.push('/map');
     }
     return (
-        <form action="" method="" onSubmit={handleSubmit} className="form" id="loginForm" data-testid="LoginForm">
+        <form action="" method="" onSubmit={handleSubmit(onSubmit)} className="form" id="loginForm" data-testid="LoginForm">
             <h1 className="form__title">Войти</h1>
             <div className="form__subtitle">
                 Новый пользователь? <Link to="/signup">Зарегистрируйтесь</Link>
             </div>
             <div className="input__group">
-                <label htmlFor="email" className="input__label">Имя пользователя<sup>*</sup></label>
-                <input type="text" name="email" className="form__input" value={inputData.email} data-testid="login-field"
-                       onChange={handleChange} required/>
+                <TextField
+                    type="email"
+                    label="Имя пользователя"
+                    placeholder="Имя пользователя"
+                    name="email"
+                    inputRef={register}
+                    className="form__input"
+                    helperText={(state.error && 'Неверный логин') || (errors.email && errors.email.message)}
+                    data-testid="login-field"
+                    error={(errors.email && true) || (state.error && true)}
+                    />
             </div>
             <div className="input__group">
-                <label htmlFor="password" className="input__label">Пароль<sup>*</sup></label>
-                <input type="password" name="password" className="form__input" value={inputData.password} data-testid="password-field"
-                       onChange={handleChange} required/>
+                <TextField
+                    type="password"
+                    label="Пароль"
+                    placeholder="Пароль"
+                    name="password"
+                    inputRef={register}
+                    className="form__input"
+                    helperText={(state.error && 'Неверный пароль') || (errors.password && errors.password.message)}
+                    data-testid="password-field"
+                    error={(errors.password && true) || (state.error && true)}
+                    />
             </div>
-            <input type="submit" value="Войти" data-testid="authButton" className="form__btn"/>
-            {state.pending ? <div className="pending"><div className="pending__inner"></div></div> : null}
+            {state.pending ? <div className="pending"><div className="pending__inner"></div></div> : <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    data-testid="authButton"
+                    className="form__btn">
+                Войти
+            </Button>}
         </form>
     )
 };
