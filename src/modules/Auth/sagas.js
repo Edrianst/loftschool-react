@@ -6,7 +6,7 @@ function* fetchAuthWatcher () {
     yield takeLatest(fetchAuthRequest, authorizationSaga);
 }
 
-function* authorizationSaga(action) {
+export function* authorizationSaga(action) {
     try {
         const response = yield call(authRequest, action.payload);
         response.success ? yield put(fetchAuthSuccess(response)) : yield put(fetchAuthFailure(response));
