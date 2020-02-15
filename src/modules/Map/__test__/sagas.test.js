@@ -13,5 +13,6 @@ describe('addressListSaga', () => {
 
         expect(gen.next().value).toEqual(call(addressRequest));
         expect(gen.next(response).value).toEqual(put(fetchAddressSuccess(response.addresses)));
+        expect(gen.next().done).toBeTruthy();
     });
 });
