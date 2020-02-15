@@ -74,7 +74,7 @@ export const OrderForm = () => {
                         </Button>
                     </>
                     ) : (
-                    <form action="" method="" onSubmit={handleSubmit(onSubmit)}>
+                    <form action="" method="" data-testid="order-form" onSubmit={handleSubmit(onSubmit)}>
                         <div className="address__group">
                             <div className="address__select">
                                 <IconFrom />
