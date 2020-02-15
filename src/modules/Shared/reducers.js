@@ -1,6 +1,6 @@
 import {handleActions} from "redux-actions";
 import {fetchAddressFailure, fetchAddressRequest, fetchAddressSuccess, fetchRouteFailure} from "../Map/actions";
-import{fetchAuthFailure, fetchAuthRequest, fetchAuthSuccess} from "../Auth/actions";
+import {fetchAuthFailure, fetchAuthRequest, fetchAuthSuccess} from "../Auth/actions";
 import {fetchProfileFailure, fetchProfileRequest, fetchProfileSuccess} from "../Profile/actions";
 
 export const pending = handleActions({
