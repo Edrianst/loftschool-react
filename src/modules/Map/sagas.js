@@ -20,7 +20,7 @@ export function* addressListSaga() {
     }
 }
 
-function* routeSaga(action) {
+export function* routeSaga(action) {
     try {
         const response = yield call(routesRequest, action.payload);
         yield put(fetchRouteSuccess({status: true, coordinates: response}))

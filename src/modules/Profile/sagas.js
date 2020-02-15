@@ -6,7 +6,7 @@ function* fetchProfileWatcher() {
     yield takeLatest(fetchProfileRequest, paymentSaga);
 }
 
-function* paymentSaga(action) {
+export function* paymentSaga(action) {
     try {
         const response = yield call(setProfile, action.payload);
         response.success ? yield put(fetchProfileSuccess(action.payload)) : yield put(fetchProfileFailure(response));
