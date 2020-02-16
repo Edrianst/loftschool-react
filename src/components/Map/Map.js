@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import mapboxgl from 'mapbox-gl';
 import { mapboxToken as token } from '../../constants/Tokens';
 import Header from "../Shared/Header/Header";
@@ -7,7 +7,8 @@ import { drawRoute } from "./DrawRoute";
 import { useSelector } from "react-redux";
 
 const Map = () => {
-    const route = useSelector(state => state.route);
+    const state = useSelector(state => state);
+    const [stateMap, setStateMap] = useState(null);
     let mapContainer;
     useEffect(() => {
         mapboxgl.accessToken = token;
@@ -17,15 +18,31 @@ const Map = () => {
             center: [30.2656504, 59.8029126],
             zoom: 15
         });
-
-        map.on('load', () => {
-            if(route.status) drawRoute(map, route.coordinates);
-        });
+        setStateMap(map);
 
         return () => {
             map.remove();
         }
-    }, [mapContainer, route]);
+    }, []);
+
+    const deleteRoute = useCallback(() => {
+        stateMap.removeLayer('route');
+        stateMap.removeLayer('start');
+        stateMap.removeLayer('start-inner');
+        stateMap.removeLayer('finish');
+        stateMap.removeLayer('finish-inner');
+        stateMap.removeSource('start');
+        stateMap.removeSource('finish');
+        stateMap.removeSource('route');
+        stateMap.flyTo({
+            zoom: 15
+        });
+    }, [stateMap]);
+
+    useEffect(() => {
+        state.route.status && drawRoute(stateMap, state.route.coordinates);
+        state.cancel && deleteRoute();
+    }, [state.route, state.cancel, stateMap]);
 
     return (
         <>
