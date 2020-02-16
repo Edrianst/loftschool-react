@@ -7,4 +7,4 @@ export const numberValidator = (value) => {
 
 export const cvcValidator = value => value.replace(/[^\d]/g, '').substring(0,3);
 
-export const cardNameValidator = value => value.replace(value, value.toUpperCase()).substring(0,22);
+export const cardNameValidator = value => value.replace(/[^a-z\s]+/ig, "").toUpperCase().substring(0,22);
