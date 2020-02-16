@@ -17,3 +17,8 @@ export const order = handleActions({
     [makeOrder]: () => true,
     [cancelOrder]: () => false
 }, false);
+
+export const cancel = handleActions({
+    [cancelOrder]: () => true,
+    [makeOrder]: () => false,
+}, false);
