@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { fetchAuthRequest } from "../../modules/Auth/actions";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,9 +21,12 @@ const LoginForm = () => {
         dispatch(fetchAuthRequest(data))
     };
 
-    if(state.isLoggedIn) {
-        history.push('/map');
-    }
+    useEffect(() => {
+        if(state.isLoggedIn) {
+            history.push('/map');
+        }
+    },[state.isLoggedIn, history]);
+
     return (
         <form action="" method="" onSubmit={handleSubmit(onSubmit)} className="form" id="loginForm" data-testid="LoginForm">
             <h1 className="form__title">Войти</h1>
@@ -40,7 +43,7 @@ const LoginForm = () => {
                     className="form__input"
                     helperText={(state.error && 'Неверный логин') || (errors.email && errors.email.message)}
                     data-testid="login-field"
-                    error={(errors.email && true) || (state.error && true)}
+                    error={!!errors.email || !!state.error}
                     />
             </div>
             <div className="input__group">
@@ -53,7 +56,7 @@ const LoginForm = () => {
                     className="form__input"
                     helperText={(state.error && 'Неверный пароль') || (errors.password && errors.password.message)}
                     data-testid="password-field"
-                    error={(errors.password && true) || (state.error && true)}
+                    error={!!errors.password || !!state.error}
                     />
             </div>
             {state.pending ? <div className="pending"><div className="pending__inner"></div></div> : <Button
