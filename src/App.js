@@ -13,8 +13,8 @@ const App = () => {
             <Switch>
                 <PrivateRoute exact path="/map" component={Map}/>
                 <PrivateRoute exact path="/profile" component={Profile}/>
-                <Route path="/login" component={Login}/>
-                <Route path="/signup" component={Signup}/>
+                <Route exact path="/login" component={Login}/>
+                <Route exact path="/signup" component={Signup}/>
                 <Redirect to="/map"/>
             </Switch>
         </>
