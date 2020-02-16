@@ -27,7 +27,7 @@ ReactDOM.render(
             <MuiThemeProvider theme={theme}>
                 <Provider store={store}>
                     <BrowserRouter>
-                        <App data-testid="App"/>
+                        <App />
                     </BrowserRouter>
                 </Provider>
             </MuiThemeProvider>

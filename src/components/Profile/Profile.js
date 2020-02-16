@@ -74,7 +74,6 @@ const Profile = () => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    type="submit"
                                     className="form__btn"
                                     onClick={handleClick}>
                                     Перейти на карту

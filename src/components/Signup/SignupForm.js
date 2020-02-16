@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link, useHistory } from "react-router-dom";
 import { fetchAuthRequest } from "../../modules/Auth/actions";
 import { useSelector, useDispatch} from "react-redux";
@@ -38,9 +38,12 @@ const SignupForm = () => {
         target.value = fieldValidator(target.value);
     };
 
-    if(state.isLoggedIn) {
-        history.push('/map');
-    }
+    useEffect(() => {
+        if(state.isLoggedIn) {
+            history.push('/map');
+        }
+    },[state.isLoggedIn, history]);
+
     return (
             <form action="" method="" onSubmit={handleSubmit(onSubmit)} className="form" id="loginForm" data-testid="LoginForm">
                 <h1 className="form__title">Регистрация</h1>
@@ -54,7 +57,7 @@ const SignupForm = () => {
                         type="email"
                         inputRef={register}
                         helperText={(state.error && 'Такой пользователь уже существует') || (errors.email && errors.email.message)}
-                        error={(errors.email && true) || (state.error && true)}
+                        error={!!errors.email || !!state.error}
                         name="email"
                         className="form__input"
                         data-testid="email-field"
