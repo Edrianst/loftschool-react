@@ -6,7 +6,10 @@ import { OrderForm } from '../OrderForm';
 import {render} from "@testing-library/react";
 
 const store = createStore(route, {
-    address: ['some address', 'some other address']
+    address: ['some address', 'some other address'],
+    route: {
+        status: false
+    }
 });
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
