@@ -1,4 +1,4 @@
-import {address, route, order, cancel} from "../reducers";
+import {address, route} from "../reducers";
 
 describe('address reducer', () => {
 
@@ -59,53 +59,5 @@ describe('route reducer', () => {
             status: status,
             coordinates: coordinates
         })
-    })
-});
-
-describe('order reducer', () => {
-    let action;
-
-    it('should return default state if no action type is recognized', () => {
-        expect(order({}, {type: null})).toEqual({});
-    });
-
-    it('should set state to true if receives make order action', () => {
-        action = {
-            type: 'MAKE_ORDER'
-        };
-
-        expect(order({}, action)).toEqual(true);
-    });
-
-    it('should set state to false if receives cancel action', () => {
-        action = {
-          type: 'CANCEL_ORDER'
-        };
-
-        expect(order({}, action)).toEqual(false);
-    })
-});
-
-describe('cancel reducer', () => {
-    let action;
-
-    it('should return default state if no action type is recognized', () => {
-        expect(cancel({}, {type: null})).toEqual({});
-    });
-
-    it('should set state to true if receives make order action', () => {
-        action = {
-            type: 'CANCEL_ORDER'
-        };
-
-        expect(cancel({}, action)).toEqual(true);
-    });
-
-    it('should set state to false if receives cancel action', () => {
-        action = {
-            type: 'MAKE_ORDER'
-        };
-
-        expect(cancel({}, action)).toEqual(false);
     })
 });

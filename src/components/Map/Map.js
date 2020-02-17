@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 const Map = () => {
     const state = useSelector(state => state);
     const [stateMap, setStateMap] = useState(null);
+    const [mapIsLoaded, setMapLoaded] = useState(false);
     let mapContainer;
     useEffect(() => {
         mapboxgl.accessToken = token;
@@ -20,29 +21,36 @@ const Map = () => {
         });
         setStateMap(map);
 
+        map.on('idle', () => setMapLoaded(true));
+
         return () => {
             map.remove();
         }
-    }, []);
+    }, [mapContainer]);
+
+    const removeIfLayerExists = (map, id) => {
+        map.getLayer(id) && map.removeLayer(id);
+    };
+
+    const removeIfSourceExists = (map, id) => {
+        map.getSource(id) && map.removeSource(id);
+    };
 
     const deleteRoute = useCallback(() => {
-        stateMap.removeLayer('route');
-        stateMap.removeLayer('start');
-        stateMap.removeLayer('start-inner');
-        stateMap.removeLayer('finish');
-        stateMap.removeLayer('finish-inner');
-        stateMap.removeSource('start');
-        stateMap.removeSource('finish');
-        stateMap.removeSource('route');
+        const layersIds = ['start', 'start-inner', 'finish', 'finish-inner', 'route'];
+        const sourceIds = ['start', 'finish', 'route'];
+        layersIds.map(id => removeIfLayerExists(stateMap, id));
+        sourceIds.map(id => removeIfSourceExists(stateMap, id));
         stateMap.flyTo({
             zoom: 15
         });
     }, [stateMap]);
 
     useEffect(() => {
-        state.route.status && drawRoute(stateMap, state.route.coordinates);
-        state.cancel && deleteRoute();
-    }, [state.route, state.cancel, stateMap]);
+        if(mapIsLoaded) {
+            state.route.status ? drawRoute(stateMap, state.route.coordinates) : deleteRoute();
+        }
+    }, [state.route, mapIsLoaded, stateMap, deleteRoute]);
 
     return (
         <>
