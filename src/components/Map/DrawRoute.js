@@ -1,5 +1,4 @@
 export const drawRoute = (map, coordinates) => {
-
     let p1 = coordinates[0];
     let p2 = coordinates[(coordinates.length - 1)];
     const bbox = [p1, p2];

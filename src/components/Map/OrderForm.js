@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Select from 'react-select';
 import { useSelector, useDispatch } from "react-redux";
-import { fetchRouteRequest, makeOrder, cancelOrder } from "../../modules/Map/actions";
+import { fetchRouteRequest, cancelOrder } from "../../modules/Map/actions";
 import { Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import {IconTo, IconFrom} from "./Icons";
@@ -33,7 +33,6 @@ export const OrderForm = () => {
             address1: data.address1.value,
             address2: data.address2.value
         }));
-        dispatch(makeOrder());
     };
 
     const handleSelectOne = ([selected]) => {
@@ -60,70 +59,70 @@ export const OrderForm = () => {
     }, [dispatch]);
 
     return (
-            <>
-                {state.order ? (
-                    <>
-                        <h1>Заказ размещён</h1>
-                        <p className="panel__subtext">Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.</p>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className="form__btn"
-                            onClick={handleCancelOrder}>
-                            Сделать новый заказ
-                        </Button>
-                    </>
-                    ) : (
-                    <form action="" method="" data-testid="order-form" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="address__group">
-                            <div className="address__select">
-                                <IconFrom />
-                                <Controller
-                                    as={Select}
-                                    name="address1"
-                                    inputRef={register}
-                                    control={control}
-                                    className="address__input"
-                                    options={availableOptions}
-                                    styles={customStyle}
-                                    placeholder="Откуда"
-                                    isClearable
-                                    isSearchable
-                                    onChange={handleSelectOne}
-                                    noOptionsMessage={handleOptionMessage}
-                                />
-                            </div>
-                            <div className="address__select">
-                                <IconTo />
-                                <Controller
-                                    as={Select}
-                                    name="address2"
-                                    className="address__input"
-                                    inputRef={register}
-                                    control={control}
-                                    options={availableOptions}
-                                    styles={customStyle}
-                                    placeholder="Куда"
-                                    isClearable
-                                    isSearchable
-                                    onChange={handleSelectTwo}
-                                    noOptionsMessage={handleOptionMessage}
-                                />
-                            </div>
+        <>
+            {state.route.status ? (
+                <>
+                    <h1>Заказ размещён</h1>
+                    <p className="panel__subtext">Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.</p>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className="form__btn"
+                        onClick={handleCancelOrder}>
+                        Сделать новый заказ
+                    </Button>
+                </>
+                ) : (
+                <form action="" method="" data-testid="order-form" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="address__group">
+                        <div className="address__select">
+                            <IconFrom />
+                            <Controller
+                                as={Select}
+                                name="address1"
+                                inputRef={register}
+                                control={control}
+                                className="address__input"
+                                options={availableOptions}
+                                styles={customStyle}
+                                placeholder="Откуда"
+                                isClearable
+                                isSearchable
+                                onChange={handleSelectOne}
+                                noOptionsMessage={handleOptionMessage}
+                            />
                         </div>
-                        {state.pending ?
-                            <div className="pending"><div className="pending__inner"></div></div>
-                                : <Button
-                                    type="submit"
-                                    className="form__btn"
-                                    variant="contained"
-                                    color="primary"
-                                    data-testid="submit"
-                                    disabled={!addressOne || !addressTwo}>
-                                    Вызвать такси
-                                </Button>}
-                    </form>
-                )}
-            </>
+                        <div className="address__select">
+                            <IconTo />
+                            <Controller
+                                as={Select}
+                                name="address2"
+                                className="address__input"
+                                inputRef={register}
+                                control={control}
+                                options={availableOptions}
+                                styles={customStyle}
+                                placeholder="Куда"
+                                isClearable
+                                isSearchable
+                                onChange={handleSelectTwo}
+                                noOptionsMessage={handleOptionMessage}
+                            />
+                        </div>
+                    </div>
+                    {state.pending ?
+                        <div className="pending"><div className="pending__inner"></div></div>
+                            : <Button
+                                type="submit"
+                                className="form__btn"
+                                variant="contained"
+                                color="primary"
+                                data-testid="submit"
+                                disabled={!addressOne || !addressTwo}>
+                                Вызвать такси
+                            </Button>}
+                </form>
+            )}
+        </>
     )
 };
