@@ -11,7 +11,7 @@ function* fetchRouteWatcher () {
     yield takeLatest(fetchRouteRequest, routeSaga)
 }
 
-function* addressListSaga() {
+export function* addressListSaga() {
     try{
         const response = yield call(addressRequest);
         yield put(fetchAddressSuccess(response.addresses))
@@ -20,10 +20,10 @@ function* addressListSaga() {
     }
 }
 
-function* routeSaga(action) {
+export function* routeSaga(action) {
     try {
         const response = yield call(routesRequest, action.payload);
-        yield put(fetchRouteSuccess({status: true, coordinates: response}))
+        yield put(fetchRouteSuccess(response))
     } catch (err) {
         yield put(fetchRouteFailure(err));
     }

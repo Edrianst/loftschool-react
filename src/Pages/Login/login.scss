@@ -1,0 +1,146 @@
+.bg-container {
+    height: 100vh;
+    background: url('../../img/bg.jpg') no-repeat 50% 50% /cover;
+}
+
+.login__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.content__part {
+    position: relative;
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+}
+
+.profile__content {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.form {
+    background-color: $white;
+    padding: 50px 50px;
+    border-radius: 5px;
+    .form__btn {
+        display: block;
+        margin-left: auto;
+        margin-top: 35px;
+    }
+     &--profile {
+         text-align: center;
+         position: relative;
+         .form__subtitle {
+             margin-top: 10px;
+         }
+         .form__input {
+             font-size: 24px;
+         }
+         .form__btn {
+             margin: 0 auto;
+             margin-top: 35px;
+         }
+     }
+}
+
+.form__panels {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form__panel {
+    flex: 0 0 48%;
+    box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 35px 30px 30px 30px;
+    position: relative;
+    .input__group {
+        margin-top: 35px;
+
+        &:first-child {
+            margin-top: 10px;
+        }
+    }
+}
+
+.mc-logo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.form__title {
+    font-size: 35px;
+}
+
+.form__subtitle {
+    margin: 30px 0;
+    font-size: 16px;
+    color: $darkgrey;
+    a {
+        text-decoration: none;
+        color: $blue;
+    }
+}
+
+.input__group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.form__input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid $input-border;
+    padding: 5px;
+    &:focus {
+        border: none;
+        border-bottom: 3px solid $blue;
+        outline: none;
+    }
+}
+
+.input__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input__block {
+    flex: 0 0 48%;
+}
+
+.pending {
+    margin: 0 auto;
+    margin-top: 35px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(to right, $blue, $lightblue);
+    animation: 1s linear 0s infinite rotate;
+}
+
+.pending__inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background-color: $white;
+}
+
