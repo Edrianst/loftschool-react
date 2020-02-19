@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import {cancelOrder as cancel,makeOrder as make, routeFailure, routeRequest, routeSuccess, addressRequest as address, addressSuccess, addressFailure} from "../Shared/types";
+import {cancelOrder as cancel,makeOrder as make, routeFailure, routeRequest, routeSuccess, addressRequest as address, addressSuccess, addressFailure} from "../types";
 
 export const fetchAddressRequest = createAction(address);
 export const fetchAddressSuccess = createAction(addressSuccess);

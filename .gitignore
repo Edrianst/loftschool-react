@@ -11,6 +11,7 @@
 # production
 /build
 
+/src/constants
 # misc
 .idea
 .DS_Store

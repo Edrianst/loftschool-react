@@ -6,6 +6,6 @@
 @import 'layout/adjustments';
 @import 'layout/base';
 //components {
-@import 'login';
-@import 'header';
-@import 'map';
+@import 'src/Pages/Login/login';
+@import 'src/Shared/Header/header';
+@import 'src/Pages/Map/map';

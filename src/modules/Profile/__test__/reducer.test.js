@@ -2,7 +2,7 @@ import {profile} from "../reducers";
 
 describe('profile reducer', () => {
     let action;
-    let profilePayload = {
+    const profilePayload = {
         cardNumber: '000',
         cardName: 'name',
         expiryDate: '11/22',
@@ -29,7 +29,10 @@ describe('profile reducer', () => {
             cardNumber: cardNumber,
             cardName: cardName,
             expiryDate: expiryDate,
-            cvc: cvc
+            cvc: cvc,
+            errors: null,
+            pending: false,
+            status: true
         })
     })
 });
