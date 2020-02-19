@@ -6,8 +6,8 @@ import { OrderForm } from '../OrderForm';
 import {render} from "@testing-library/react";
 
 const store = createStore(route, {
-    address: ['some address', 'some other address'],
     route: {
+        addressList: ['some address', 'some other address'],
         status: false
     }
 });

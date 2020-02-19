@@ -4,7 +4,7 @@ import { fetchAuthRequest } from "../../modules/Auth/actions";
 import { useSelector, useDispatch} from "react-redux";
 import { Button, TextField } from "@material-ui/core";
 import { useForm } from "react-hook-form";
-import {fieldValidator} from "./validate";
+import {normalizeInput} from "./normalize";
 
 import * as yup from "yup";
 
@@ -25,7 +25,7 @@ const RegisterSchema = yup.object().shape({
 
 const SignupForm = () => {
     const history = useHistory();
-    const state = useSelector(state => state);
+    const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
     const {register, handleSubmit, errors} = useForm({mode: 'onChange', validationSchema: RegisterSchema});
 
@@ -35,14 +35,14 @@ const SignupForm = () => {
     };
 
     const handleInput = ({target}) => {
-        target.value = fieldValidator(target.value);
+        target.value = normalizeInput(target.value);
     };
 
     useEffect(() => {
-        if(state.isLoggedIn) {
+        if(auth.isLoggedIn) {
             history.push('/map');
         }
-    },[state.isLoggedIn, history]);
+    },[auth.isLoggedIn, history]);
 
     return (
             <form action="" method="" onSubmit={handleSubmit(onSubmit)} className="form" id="loginForm" data-testid="LoginForm">
@@ -56,8 +56,8 @@ const SignupForm = () => {
                         placeholder="Адрес электронной почты"
                         type="email"
                         inputRef={register}
-                        helperText={(state.error && 'Такой пользователь уже существует') || (errors.email && errors.email.message)}
-                        error={!!errors.email || !!state.error}
+                        helperText={(auth.errors && 'Такой пользователь уже существует') || (errors.email && errors.email.message)}
+                        error={!!errors.email || !!auth.errors}
                         name="email"
                         className="form__input"
                         data-testid="email-field"
@@ -103,7 +103,7 @@ const SignupForm = () => {
                         className="form__input"
                     />
                 </div>
-                {state.pending ?
+                {auth.pending ?
                     <div className="pending"><div className="pending__inner"></div></div>
                     :
                     <Button

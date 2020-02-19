@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
-import { logoutAction } from "../../../modules/Auth/actions";
+import { logoutAction } from "../../modules/Auth/actions";
 import { useDispatch } from "react-redux";
 
 const HeaderMenu = () => {

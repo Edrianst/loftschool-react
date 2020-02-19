@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import McLogo from "./McIcon";
-import Header from "../Shared/Header/Header";
+import { Header } from "../../Shared/Header";
 import { fetchProfileRequest } from "../../modules/Profile/actions";
 import { fetchAddressRequest } from "../../modules/Map/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { DatePicker } from "@material-ui/pickers";
 import { Button, TextField } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
-import {numberValidator, cardNameValidator, cvcValidator} from "./validate";
+import {normalizeNumber, normalizeCvc, normalizeName} from "./normalize";
 import * as yup from 'yup';
 
 const ProfileSchema = yup.object().shape({
@@ -26,16 +26,15 @@ const ProfileSchema = yup.object().shape({
 const Profile = () => {
     const { register, handleSubmit, errors, control } = useForm({mode: 'onChange', validationSchema: ProfileSchema});
     const history = useHistory();
-    const state = useSelector(state => state);
-    const profile = state.profile;
+    const profile = useSelector(state => state.profile);
     const dispatch = useDispatch();
     const [info, updateInfo] = useState(false);
 
     const values = {
-        cardNumber: profile ? profile.cardNumber : '',
-        expiryDate: profile ? profile.expiryDate : new Date(),
-        cardName: profile ? profile.cardName : '',
-        cvc: profile ? profile.cvc : ''
+        cardNumber: profile.status ? profile.cardNumber : '',
+        expiryDate: profile.status ? profile.expiryDate : new Date(),
+        cardName: profile.status ? profile.cardName : '',
+        cvc: profile.status ? profile.cvc : ''
     };
 
     const handleClick = () => {
@@ -49,15 +48,15 @@ const Profile = () => {
     };
 
     const handleCardNumberInput = ({target}) => {
-        target.value = numberValidator(target.value);
+        target.value = normalizeNumber(target.value);
     };
 
     const handleCardNameInput = ({target}) => {
-        target.value = cardNameValidator(target.value);
+        target.value = normalizeName(target.value);
     };
 
     const handleCvcInput = ({target}) => {
-        target.value = cvcValidator(target.value);
+        target.value = normalizeCvc(target.value);
     };
 
     return (
@@ -140,7 +139,7 @@ const Profile = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {state.pending ?
+                                {profile.pending ?
                                     <div className="pending"><div className="pending__inner"></div></div>
                                         :
                                         <Button

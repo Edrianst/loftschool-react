@@ -16,7 +16,7 @@ export const OrderPanel = () => {
     return (
         <div className="container">
             <div className="map__panel">
-                {profile ? <OrderForm /> :
+                {profile.status ? <OrderForm /> :
                     <>
                         <h1>Заполните платежные данные</h1>
                         <p className="panel__subtext">Укажите информацию о банковской карте, чтобы сделать заказ.</p>

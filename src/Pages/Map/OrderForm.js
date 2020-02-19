@@ -20,10 +20,10 @@ export const OrderForm = () => {
     const { register, handleSubmit, control } = useForm();
     const [addressOne, setAddressOne] = useState(null);
     const [addressTwo, setAddressTwo] = useState(null);
-    const state = useSelector(state => state);
+    const route = useSelector(state => state.route);
     const dispatch = useDispatch();
 
-    const options = state.address.map(option => ({value: option, label: option}));
+    const options = route.addressList.map(option => ({value: option, label: option}));
 
     const availableOptions = options.filter(option => ![addressOne, addressTwo].includes(option.label)
     );
@@ -50,17 +50,14 @@ export const OrderForm = () => {
     const handleOptionMessage = () => 'Введите корректный адрес';
 
     const handleCancelOrder = useCallback(() => {
-        dispatch(cancelOrder({
-            status: false,
-            coordinates: null
-        }));
+        dispatch(cancelOrder(null));
         setAddressOne(null);
         setAddressTwo(null);
     }, [dispatch]);
 
     return (
         <>
-            {state.route.status ? (
+            {route.status ? (
                 <>
                     <h1>Заказ размещён</h1>
                     <p className="panel__subtext">Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.</p>
@@ -110,7 +107,7 @@ export const OrderForm = () => {
                             />
                         </div>
                     </div>
-                    {state.pending ?
+                    {route.pending ?
                         <div className="pending"><div className="pending__inner"></div></div>
                             : <Button
                                 type="submit"

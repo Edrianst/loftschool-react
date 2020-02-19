@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import mapboxgl from 'mapbox-gl';
-import { mapboxToken as token } from '../../constants/Tokens';
-import Header from "../Shared/Header/Header";
+import { mapboxToken as token } from '../../constants/tokens';
+import { Header} from "../../Shared/Header";
 import { OrderPanel } from "./OrderPanel";
 import { drawRoute } from "./DrawRoute";
 import { useSelector } from "react-redux";
 
 const Map = () => {
-    const state = useSelector(state => state);
+    const route = useSelector(state => state.route);
     const [stateMap, setStateMap] = useState(null);
     const [mapIsLoaded, setMapLoaded] = useState(false);
     let mapContainer;
@@ -48,9 +48,9 @@ const Map = () => {
 
     useEffect(() => {
         if(mapIsLoaded) {
-            state.route.status ? drawRoute(stateMap, state.route.coordinates) : deleteRoute();
+            route.status ? drawRoute(stateMap, route.coordinates) : deleteRoute();
         }
-    }, [state.route, mapIsLoaded, stateMap, deleteRoute]);
+    }, [route, mapIsLoaded, stateMap, deleteRoute]);
 
     return (
         <>
