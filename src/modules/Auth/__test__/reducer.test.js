@@ -1,23 +1,23 @@
-import {isLoggedIn} from '../reducers';
+import {auth} from '../reducers';
 
-describe('isLoggedIn reducer', () => {
+describe('auth reducer', () => {
     let action;
 
     it('should return default state, if no action type is recognized',() => {
-        expect(isLoggedIn({}, { type: null })).toEqual({});
+        expect(auth({}, { type: null })).toEqual({});
     });
 
     it('should set state to true', () => {
         action = {
             type: 'AUTH_SUCCESS'
         };
-        expect(isLoggedIn({}, action)).toEqual(true)
+        expect(auth({}, action)).toEqual({isLoggedIn: true, errors: null, pending: false})
     });
 
     it('should set state to false', () => {
         action = {
             type: 'LOGOUT_ACTION'
         };
-        expect(isLoggedIn({}, action)).toEqual(false)
+        expect(auth({}, action)).toEqual({isLoggedIn: false, errors: null, pending: false})
     });
 });

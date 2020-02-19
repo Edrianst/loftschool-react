@@ -1,1 +1,0 @@
-export const fieldValidator = value => value.substring(0, 30);

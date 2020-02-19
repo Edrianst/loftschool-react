@@ -19,7 +19,7 @@ describe('addressListSaga', () => {
 
 describe('route saga', () => {
     it('should get coordinates for route', () => {
-        let action = {
+        const action = {
             address1: 'address1',
             address2: 'address2'
         };
@@ -28,6 +28,7 @@ describe('route saga', () => {
         const response = [[10, 10], [20, 20]];
 
         expect(gen.next().value).toEqual(call(routesRequest, action.payload));
-        expect(gen.next(response).value).toEqual(put(fetchRouteSuccess({status: true, coordinates: response})))
+        expect(gen.next(response).value).toEqual(put(fetchRouteSuccess(response)));
+        expect(gen.next().done).toBeTruthy();
     })
 });

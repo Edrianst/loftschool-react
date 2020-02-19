@@ -13,7 +13,7 @@ const LoginSchema = yup.object().shape({
 
 const LoginForm = () => {
     const { register, handleSubmit, errors } = useForm({mode: 'onChange', validationSchema: LoginSchema});
-    const state = useSelector(state => state);
+    const auth = useSelector(state => state.auth);
     const history = useHistory();
     const dispatch = useDispatch();
     const onSubmit = (data) => {
@@ -22,10 +22,10 @@ const LoginForm = () => {
     };
 
     useEffect(() => {
-        if(state.isLoggedIn) {
+        if(auth.isLoggedIn) {
             history.push('/map');
         }
-    },[state.isLoggedIn, history]);
+    },[auth.isLoggedIn, history]);
 
     return (
         <form action="" method="" onSubmit={handleSubmit(onSubmit)} className="form" id="loginForm" data-testid="LoginForm">
@@ -41,9 +41,9 @@ const LoginForm = () => {
                     name="email"
                     inputRef={register}
                     className="form__input"
-                    helperText={(state.error && 'Неверный логин') || (errors.email && errors.email.message)}
+                    helperText={(auth.errors && 'Неверный логин') || (errors.email && errors.email.message)}
                     data-testid="login-field"
-                    error={!!errors.email || !!state.error}
+                    error={!!errors.email || !!auth.errors}
                     />
             </div>
             <div className="input__group">
@@ -54,12 +54,12 @@ const LoginForm = () => {
                     name="password"
                     inputRef={register}
                     className="form__input"
-                    helperText={(state.error && 'Неверный пароль') || (errors.password && errors.password.message)}
+                    helperText={(auth.errors && 'Неверный пароль') || (errors.password && errors.password.message)}
                     data-testid="password-field"
-                    error={!!errors.password || !!state.error}
+                    error={!!errors.password || !!auth.errors}
                     />
             </div>
-            {state.pending ? <div className="pending"><div className="pending__inner"></div></div> : <Button
+            {auth.pending ? <div className="pending"><div className="pending__inner"></div></div> : <Button
                     type="submit"
                     variant="contained"
                     color="primary"

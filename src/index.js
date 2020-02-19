@@ -15,9 +15,9 @@ let store = createAppStore();
 
 store.subscribe(()=> {
         saveStorage({
-            isLoggedIn: store.getState().isLoggedIn,
+            auth: store.getState().auth,
             profile: store.getState().profile,
-            address: store.getState().address
+            route: store.getState().route
         })
     }
 );
