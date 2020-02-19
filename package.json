@@ -9,7 +9,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/user-event": "^7.2.1",
     "date-fns": "^2.9.0",
-    "dotenv": "^8.2.0",
     "loft-taxi-mui-theme": "^1.2.0",
     "mapbox-gl": "^1.6.1",
     "node-sass": "^4.13.1",
