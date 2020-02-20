@@ -1,8 +1,8 @@
 import React from 'react';
 import {createStore} from 'redux';
-import {route} from "../../../modules/Map";
+import {route} from "../../modules/Map";
 import { Provider } from "react-redux";
-import { OrderForm } from '../OrderForm';
+import { OrderForm } from './OrderForm';
 import {render} from "@testing-library/react";
 
 const store = createStore(route, {

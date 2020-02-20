@@ -1,4 +1,4 @@
-import {profile} from "../reducers";
+import {profile} from "./reducers";
 
 describe('profile reducer', () => {
     let action;

@@ -1,7 +1,7 @@
-import {authorizationSaga} from "../sagas";
+import {authorizationSaga} from "./sagas";
 import {put, call} from "redux-saga/effects";
-import {fetchAuthSuccess, fetchAuthFailure} from "../actions";
-import {authRequest} from "../api";
+import {fetchAuthSuccess, fetchAuthFailure} from "./actions";
+import {authRequest} from "./api";
 
 describe('authorization saga', () => {
     it('should fail if action payload is incorrect', () => {

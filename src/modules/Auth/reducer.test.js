@@ -1,4 +1,4 @@
-import {auth} from '../reducers';
+import {auth} from './reducers';
 
 describe('auth reducer', () => {
     let action;

@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import mapboxgl from 'mapbox-gl';
-import { mapboxToken as token } from '../../constants/tokens';
 import { Header} from "../../Shared/Header";
 import { OrderPanel } from "./OrderPanel";
 import { drawRoute } from "./DrawRoute";
@@ -12,7 +11,7 @@ const Map = () => {
     const [mapIsLoaded, setMapLoaded] = useState(false);
     let mapContainer;
     useEffect(() => {
-        mapboxgl.accessToken = token;
+        mapboxgl.accessToken = process.env.REACT_APP_MAPTOKEN;
         const map = new mapboxgl.Map({
             container: mapContainer,
             style: 'mapbox://styles/mapbox/light-v10',

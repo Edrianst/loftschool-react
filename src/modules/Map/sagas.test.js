@@ -1,7 +1,7 @@
-import {addressListSaga, routeSaga} from "../sagas";
+import {addressListSaga, routeSaga} from "./sagas";
 import {call, put} from 'redux-saga/effects';
-import {addressRequest, routesRequest} from "../api";
-import {fetchAddressSuccess, fetchRouteSuccess} from "../actions";
+import {addressRequest, routesRequest} from "./api";
+import {fetchAddressSuccess, fetchRouteSuccess} from "./actions";
 
 describe('addressListSaga', () => {
 

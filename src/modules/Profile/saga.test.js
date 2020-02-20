@@ -1,7 +1,7 @@
 import {put, call} from "redux-saga/effects";
-import {paymentSaga} from "../sagas";
-import {setProfile} from "../api";
-import {fetchProfileSuccess, fetchProfileFailure} from "../actions";
+import {paymentSaga} from "./sagas";
+import {setProfile} from "./api";
+import {fetchProfileSuccess, fetchProfileFailure} from "./actions";
 
 describe('payment saga', () => {
     it('should fail if action payload is incorrect', () => {

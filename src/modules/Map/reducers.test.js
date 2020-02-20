@@ -1,4 +1,4 @@
-import {route} from "../reducers";
+import {route} from "./reducers";
 
 describe('route reducer', () => {
     let action;
