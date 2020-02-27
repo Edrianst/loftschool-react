@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Готовый проект - http://edrian-web.ru
+
 ## LoftSchool выпускной проект Loft-Taxi
 
 <b> Студент: </b>Кирсанов Денис<br>
